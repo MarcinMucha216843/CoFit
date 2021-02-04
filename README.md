@@ -1,6 +1,6 @@
-# cofit
+# CoFit
 
-A new Flutter application.
+An engineer's degree application.
 
 ## Getting Started
 
