@@ -1,6 +1,6 @@
 # CoFit
 
-A engineer's degree application.
+An engineer's degree application.
 
 ## Getting Started
 
