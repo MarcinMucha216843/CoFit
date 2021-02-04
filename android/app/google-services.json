@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "727254234747",
+    "firebase_url": "https://degree20.firebaseio.com",
+    "project_id": "degree20",
+    "storage_bucket": "degree20.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:727254234747:android:740f9376ad1a7a6ad994de",
+        "android_client_info": {
+          "package_name": "com.CoFit"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "727254234747-palfnuk5esfamr7fnu7vajvdhms83aga.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCdLpMPZK9sZxaEhhRSsDIUv6ZOMaRM9rw"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "727254234747-palfnuk5esfamr7fnu7vajvdhms83aga.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

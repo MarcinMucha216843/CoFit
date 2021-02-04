@@ -1,0 +1,151 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+
+class Database {
+  final String uid;
+  Database({this.uid});
+
+  final CollectionReference usersCollection = FirebaseFirestore.instance.collection('users');
+
+  int getWeight(String uid) {
+    int weight;
+    usersCollection.doc(uid).get().then((result){
+      weight = result.data()['weight'];
+    });
+    return weight;
+  }
+
+  int getHeight(String uid) {
+    int height;
+    usersCollection.doc(uid).get().then((result){
+      height = result.data()['height'];
+    });
+    return height;
+  }
+
+  int getAge(String uid) {
+    int age;
+    usersCollection.doc(uid).get().then((result){
+      age = result.data()['age'];
+    });
+    return age;
+  }
+
+  int getPoints(String uid) {
+    int points;
+    usersCollection.doc(uid).get().then((result){
+      points = result.data()['points'];
+    });
+    return points;
+  }
+
+  String getSex(String uid) {
+    String sex;
+    usersCollection.doc(uid).get().then((result){
+      sex = result.data()['sex'];
+    });
+    return sex;
+  }
+
+  double getActivity(String uid) {
+    double activity;
+    usersCollection.doc(uid).get().then((result){
+      activity = result.data()['activity'];
+    });
+    return activity;
+  }
+
+  int getCalories(String uid) {
+    int calories;
+    usersCollection.doc(uid).get().then((result){
+      calories = result.data()['calories'];
+    });
+    return calories;
+  }
+
+  int getDrink(String uid) {
+    int drink;
+    usersCollection.doc(uid).get().then((result){
+      drink = result.data()['drink'];
+    });
+    return drink;
+  }
+
+  Future updateUserInfo(int weight, int height, int age, int points, String sex, double activity, int calories, int drink, GeoPoint geoBefore, GeoPoint geoNow, int day) async {
+    return await usersCollection.doc(uid).set({
+      'weight': weight,
+      'height': height,
+      'age': age,
+      'points': points,
+      'sex': sex,
+      'activity': activity,
+      'calories': calories,
+      'drink': drink,
+      'geoBefor': geoBefore,
+      'geoNow': geoNow,
+      'day': day,
+    }).then((value) => print("User updated")).catchError((error) => print("Failed to update user: $error"));
+  }
+
+  Future updateUserWeight(int weight) async {
+    return await usersCollection.doc(uid).update({
+      'weight': weight,
+    }).then((value) => print("Weight changed")).catchError((error) => print("Failed to change weight: $error"));
+  }
+
+  Future updateUserHeight(int height) async {
+    return await usersCollection.doc(uid).update({
+      'height': height,
+    }).then((value) => print("Height changed")).catchError((error) => print("Failed to change height: $error"));
+  }
+
+  Future updateUserAge(int age) async {
+    return await usersCollection.doc(uid).update({
+      'age': age,
+    }).then((value) => print("Age changed")).catchError((error) => print("Failed to change age: $error"));
+  }
+
+  Future updateUserPoints(int points) async {
+    return await usersCollection.doc(uid).update({
+      'points': points,
+    }).then((value) => print("Points changed")).catchError((error) => print("Failed to change points: $error"));
+  }
+
+  Future updateUserSex(String sex) async {
+    return await usersCollection.doc(uid).update({
+      'sex': sex,
+    }).then((value) => print("Sex changed")).catchError((error) => print("Failed to change sex: $error"));
+  }
+
+  Future updateUserActivity(double activity) async {
+    return await usersCollection.doc(uid).update({
+      'activity': activity,
+    }).then((value) => print("Activity changed")).catchError((error) => print("Failed to change activity: $error"));
+  }
+
+  Future updateUserCalories(int calories) async {
+    return await usersCollection.doc(uid).update({
+      'calories': FieldValue.increment(calories),
+    }).then((value) => print("Calories changed")).catchError((error) => print("Failed to change calories: $error"));
+  }
+
+  Future updateUserDrink(int drink) async {
+    return await usersCollection.doc(uid).update({
+      'drink': FieldValue.increment(drink),
+    }).then((value) => print("Drink changed")).catchError((error) => print("Failed to change drink: $error"));
+  }
+
+  Future updateUserGeoPoints(GeoPoint geoBefore, GeoPoint geoNow) async {
+    await usersCollection.doc(uid).update({
+      'geoBefore': geoBefore,
+    }).then((value) => print("Geopoint before changed")).catchError((error) => print("Failed to change geopoint before: $error"));
+    return await usersCollection.doc(uid).update({
+      'geoNow': geoNow,
+    }).then((value) => print("Geopoint now changed")).catchError((error) => print("Failed to change geopoint now: $error"));
+  }
+
+  Future updateUserDay(int day) async {
+    return await usersCollection.doc(uid).update({
+      'day': day,
+    }).then((value) => print("Activity changed")).catchError((error) => print("Failed to change activity: $error"));
+  }
+}
