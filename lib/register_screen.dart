@@ -285,9 +285,9 @@ class _RegisterState extends State<RegisterScreen> {
                           builder: (context) => HomeScreen(),
                         ),
                       );
-                      Flushbar(message: "After first login, please update your profile", duration: Duration(seconds: 6),
+                      Flushbar(message: "After first login, please update Your profile", duration: Duration(seconds: 6),
                           icon: Icon(Icons.error_outline, size: 28, color: Colors.orange.shade300)).show(context);
-                      Flushbar(message: "Succesfully registered. Please chcek your email", duration: Duration(seconds: 3),
+                      Flushbar(message: "Succesfully registered. Please chcek Your email", duration: Duration(seconds: 3),
                           icon: Icon(Icons.done_outline, size: 28, color: Colors.green.shade300)).show(context);
                     }
                   },

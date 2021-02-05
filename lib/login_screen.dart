@@ -222,7 +222,7 @@ class _LoginState extends State<LoginScreen> {
                           builder: (context) => HomeScreen(),
                         ),
                       );
-                      Flushbar(message: "Message has been sent to your email", duration: Duration(seconds: 3),
+                      Flushbar(message: "Message has been sent to Your email", duration: Duration(seconds: 3),
                           icon: Icon(Icons.error_outline, size: 28, color: Colors.orange.shade300)).show(context);
                     }
                   },
