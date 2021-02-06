@@ -152,7 +152,7 @@ class StatisticsScreenState extends State<StatisticsScreen> {
           crossAxisAlignment: CrossAxisAlignment.stretch,
               children: <Widget>[
                 Text(
-                  "Graph of Your achieved caloric goals for the last 14 days:",
+                  "Graph of Your achieved caloric goals from last 14 days:",
                   style: TextStyle(fontSize: 16, color: Colors.black),
                 ),
                 Container(
@@ -165,7 +165,7 @@ class StatisticsScreenState extends State<StatisticsScreen> {
                   height: 40.0,
                 ),
                 Text(
-                  "Graph of Your achieved water goals for the last 14 days:",
+                  "Graph of Your achieved water goals from last 14 days:",
                   style: TextStyle(fontSize: 16, color: Colors.black),
                 ),
                 Container(
