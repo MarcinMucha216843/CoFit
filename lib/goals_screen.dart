@@ -60,7 +60,7 @@ class _GoalsScreenState extends State<GoalsScreen> {
     if (percentage > 100){
       percentage = 100;
     }
-
+    
     return percentage;
   }
 
@@ -77,8 +77,20 @@ class _GoalsScreenState extends State<GoalsScreen> {
     if (percentage > 100){
       percentage = 100;
     }
-
+    
     return percentage;
+  }
+  
+  Color setColor(double percentage) {
+    if(percentage < 40){
+      return Colors.red;
+    }
+    else if(percentage < 80){
+      return Colors.amber;
+    }
+    else {
+      return Colors.lightGreen[900];
+    }
   }
 
   Future getCurrentUser() async {
@@ -318,9 +330,18 @@ class _GoalsScreenState extends State<GoalsScreen> {
                   children: <Widget>[
                     Padding(
                       padding: const EdgeInsets.all(8.0),
-                      child: Text(
-                        "Achieved percentage : ${caloriesPercentage()}%",
-                        style: TextStyle(fontSize: 20, color: Colors.white),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: <Widget>[
+                          Text(
+                            "Achieved percentage : ",
+                            style: TextStyle(fontSize: 20, color: Colors.white),
+                          ),
+                          Text(
+                            "${caloriesPercentage()}%",
+                            style: TextStyle(fontSize: 20, color: setColor(caloriesPercentage()), fontWeight: FontWeight.bold),
+                          ),
+                        ],
                       ),
                     ),
                   ],
@@ -382,9 +403,18 @@ class _GoalsScreenState extends State<GoalsScreen> {
                   children: <Widget>[
                     Padding(
                       padding: const EdgeInsets.all(8.0),
-                      child: Text(
-                        "Achieved percentage : ${drinkPercentage()}%",
-                        style: TextStyle(fontSize: 20, color: Colors.white),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: <Widget>[
+                          Text(
+                            "Achieved percentage : ",
+                            style: TextStyle(fontSize: 20, color: Colors.white),
+                          ),
+                          Text(
+                            "${drinkPercentage()}%",
+                            style: TextStyle(fontSize: 20, color: setColor(drinkPercentage()), fontWeight: FontWeight.bold),
+                          ),
+                        ],
                       ),
                     ),
                   ],
