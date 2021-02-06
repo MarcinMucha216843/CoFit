@@ -1,4 +1,5 @@
 import 'package:cofit/profile_screen.dart';
+import 'package:cofit/statistics_screen.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flushbar/flushbar.dart';
 import 'package:flutter/foundation.dart';
@@ -228,6 +229,25 @@ class _DashboardScreenState extends State<DashboardScreen> {
                     );
                   },
                   child: Text("Excercise")),
+            ),
+            SizedBox(height: MediaQuery.of(context).size.height / 35),
+            Container(
+              width: MediaQuery.of(context).size.width / 1.4,
+              height: 45,
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(15.0),
+                color: Colors.white,
+              ),
+              child: MaterialButton(
+                  onPressed: (){
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => StatisticsScreen(),
+                      ),
+                    );
+                   },
+                  child: Text("Statistics")),
             ),
             SizedBox(height: MediaQuery.of(context).size.height / 35),
           ],

@@ -70,7 +70,7 @@ class Database {
     return drink;
   }
 
-  Future updateUserInfo(int weight, int height, int age, int points, String sex, double activity, int calories, int drink, GeoPoint geoBefore, GeoPoint geoNow, int day) async {
+  Future updateUserInfo(int weight, int height, int age, int points, String sex, double activity, int calories, int drink, GeoPoint geoBefore, GeoPoint geoNow, int day, List<int> caloriesStatistics, List<int> drinkStatistics) async {
     return await usersCollection.doc(uid).set({
       'weight': weight,
       'height': height,
@@ -83,6 +83,8 @@ class Database {
       'geoBefor': geoBefore,
       'geoNow': geoNow,
       'day': day,
+      'caloriesStatistics': caloriesStatistics,
+      'drinkStatistics': drinkStatistics,
     }).then((value) => print("User updated")).catchError((error) => print("Failed to update user: $error"));
   }
 
@@ -146,6 +148,18 @@ class Database {
   Future updateUserDay(int day) async {
     return await usersCollection.doc(uid).update({
       'day': day,
-    }).then((value) => print("Activity changed")).catchError((error) => print("Failed to change activity: $error"));
+    }).then((value) => print("Day changed")).catchError((error) => print("Failed to change day: $error"));
+  }
+
+  Future updateUserCaloriesStatistics(List<int> caloriesStatistics) async {
+    return await usersCollection.doc(uid).update({
+      'caloriesStatistics': caloriesStatistics,
+    }).then((value) => print("Calories statistics changed")).catchError((error) => print("Failed to change calories statistics: $error"));
+  }
+
+  Future updateUserDrinkStatistics(List<int> drinkStatistics) async {
+    return await usersCollection.doc(uid).update({
+      'drinkStatistics': drinkStatistics,
+    }).then((value) => print("Drink statistics changed")).catchError((error) => print("Failed to change drink statistics: $error"));
   }
 }
