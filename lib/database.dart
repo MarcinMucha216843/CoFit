@@ -80,7 +80,7 @@ class Database {
       'activity': activity,
       'calories': calories,
       'drink': drink,
-      'geoBefor': geoBefore,
+      'geoBefore': geoBefore,
       'geoNow': geoNow,
       'day': day,
       'caloriesStatistics': caloriesStatistics,

@@ -77,17 +77,140 @@ Future changeDay() async {
     user.geoBefore = result.data()['geoBefore'];
     user.geoNow = result.data()['geoNow'];
     user.day = result.data()['day'];
+    user.caloriesStatistics = result.data()['caloriesStatistics'].cast<int>();
+    user.drinkStatistics = result.data()['drinkStatistics'].cast<int>();
   });
 
   DateTime today = DateTime.now();
   int day = today.day;
 
   if (user.day != day){
+    managePoints();
+    updateStatistics();
     await FirebaseFirestore.instance.collection('users').doc(FirebaseAuth.instance.currentUser.uid).update({
       'day': day,
     });
-    managePoints();
   }
+}
+
+void shiftList(List<int> list) {
+  int first = list[0];
+
+  int i = 1;
+  for(; i < list.length; i++){
+    list[i - 1] = list[i];
+  }
+
+  list[i - 1] = first;
+}
+
+Future updateStatistics() async {
+  List<int> stats = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
+  MyUser user = new MyUser(0, 0, 0, "Man", 0, 1.0, 0, 0, new GeoPoint(0.0, 0.0), new GeoPoint(0.0, 0.0), 0, stats, stats);
+  await FirebaseFirestore.instance.collection('users').doc(FirebaseAuth.instance.currentUser.uid).get().then((
+      result) {
+    user.weight = result.data()['weight'];
+    user.height = result.data()['height'];
+    user.sex = result.data()['sex'];
+    user.age = result.data()['age'];
+    user.points = result.data()['points'];
+    user.activity = result.data()['activity'];
+    user.calories = result.data()['calories'];
+    user.drink = result.data()['drink'];
+    user.geoBefore = result.data()['geoBefore'];
+    user.geoNow = result.data()['geoNow'];
+    user.day = result.data()['day'];
+    user.caloriesStatistics = result.data()['caloriesStatistics'].cast<int>();
+    user.drinkStatistics = result.data()['drinkStatistics'].cast<int>();
+  });
+
+  print(user.caloriesStatistics);
+  print(user.drinkStatistics);
+
+  List<int> caloriesList = user.caloriesStatistics;
+  List<int> drinkList = user.drinkStatistics;
+
+  DateTime today = DateTime.now();
+  int day = today.day;
+
+  double caloriesDaily = 0;
+  if (user.sex == "Man") {
+    caloriesDaily = (66.5 + (13.7 * user.weight) + (5 * user.height) - (6.8 * user.age))*user.activity;
+  }
+  else {
+    caloriesDaily =  (665 + (9.6 * user.weight) + (1.85 * user.height) - (4.7 * user.age))*user.activity;
+  }
+  double caloriesPercentage = (user.calories/caloriesDaily)*100;
+  if (caloriesPercentage > 100){
+    caloriesPercentage = 100;
+  }
+
+  int drinkDaily = 0;
+  drinkDaily = user.weight * 32;
+  double drinkPercentage = (user.drink/drinkDaily)*100;
+  if (drinkPercentage > 100){
+    drinkPercentage = 100;
+  }
+
+  int _day = DateTime.now().day;
+  int _month = DateTime.now().month;
+  int _year = DateTime.now().year;
+
+  if (day != user.day){
+    if (user.day > day) {
+      int differenceDays = day - user.day;
+      if (differenceDays >= 0) {
+        _day = user.day;
+      }
+      if (differenceDays < 0){
+        _month -= 1;
+        _year = today.year;
+        if (_month == 0) {
+          _month = 12;
+          _year -= 1;
+        }
+        _day = differenceDays.abs() + day;
+      }
+    }
+    if (user.day < day) {
+      int differenceDays = day - user.day;
+      if (differenceDays >= 0) {
+        _day = user.day;
+      }
+      if (differenceDays < 0){
+        _month -= 1;
+        _year = today.year;
+        if (_month == 0) {
+          _month = 12;
+          _year -= 1;
+        }
+        _day = differenceDays.abs() + day;
+      }
+    }
+
+  }
+  DateTime temp = DateTime(_year, _month, _day);
+  int differenceDate = today.difference(temp).inDays;
+
+  for (int i = 0; i < differenceDate; i++) {
+    shiftList(caloriesList);
+    shiftList(drinkList);
+    caloriesList.last = 0;
+    drinkList.last = 0;
+  }
+
+  shiftList(caloriesList);
+  shiftList(drinkList);
+
+  caloriesList.last = caloriesPercentage.toInt();
+  drinkList.last = drinkPercentage.toInt();
+
+  await FirebaseFirestore.instance.collection('users').doc(FirebaseAuth.instance.currentUser.uid).update({
+    'caloriesStatistics': caloriesList,
+  });
+  await FirebaseFirestore.instance.collection('users').doc(FirebaseAuth.instance.currentUser.uid).update({
+    'drinkStatistics': drinkList,
+  });
 }
 
 Future managePoints() async {
