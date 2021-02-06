@@ -23,7 +23,7 @@ dataBuilderCalories() {
 
   List<PercentageSeries> data = [];
   for (int i = 0; i < user.caloriesStatistics.length; i++) {
-    data.add(new PercentageSeries(day: i + 1, percentage: user.caloriesStatistics[i], color: charts.ColorUtil.fromDartColor(Colors.amber)));
+    data.add(new PercentageSeries(day: user.caloriesStatistics.length - i, percentage: user.caloriesStatistics[i], color: charts.ColorUtil.fromDartColor(Colors.amber)));
   }
 
   return data;
@@ -34,7 +34,7 @@ dataBuilderDrink() {
 
   List<PercentageSeries> data = [];
   for (int i = 0; i < user.drinkStatistics.length; i++) {
-    data.add(new PercentageSeries(day: i + 1, percentage: user.drinkStatistics[i], color: charts.ColorUtil.fromDartColor(Colors.blue)));
+    data.add(new PercentageSeries(day: user.caloriesStatistics.length - i, percentage: user.drinkStatistics[i], color: charts.ColorUtil.fromDartColor(Colors.blue)));
   }
 
   return data;
@@ -55,9 +55,11 @@ Widget _buildPopupDialog(BuildContext context) {
               style: TextStyle(fontWeight: FontWeight.bold),
             ),
             Text("The horizontal axis shows the days "),
-            Text("(1 is the oldest day, 14 is the newest day)."),
+            Text("(number means how many days ago it was)."),
             Text(""),
             Text("The vertical axis shows how many percent You have achieved on that day."),
+            Text(""),
+            Text("Graphs are updated once per day."),
           ],
         ),
       ),
