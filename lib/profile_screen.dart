@@ -5,6 +5,7 @@ import 'dashboard_screen.dart';
 import 'edit_user_screen.dart';
 import 'my_user.dart';
 
+
 class ProfileScreen extends StatefulWidget {
   static const routeName = '/profileboard';
 
@@ -12,9 +13,10 @@ class ProfileScreen extends StatefulWidget {
   _ProfileScreenState createState() => _ProfileScreenState();
 }
 
+
 class _ProfileScreenState extends State<ProfileScreen> {
   static List<int> stats = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
-  MyUser user = MyUser(0, 0, 0, "Man", 0, 1.0, 0, 0, new GeoPoint(0.0, 0.0), new GeoPoint(0.0, 0.0), 0, stats, stats, 0, stats);
+  MyUser user = MyUser(0, 0, 0, "Other", 0, 1.0, 0, 0, new GeoPoint(0.0, 0.0), new GeoPoint(0.0, 0.0), 0, stats, stats, 0, stats);
   TextEditingController _userWeightController = TextEditingController();
   TextEditingController _userHeightController = TextEditingController();
   TextEditingController _userAgeController = TextEditingController();

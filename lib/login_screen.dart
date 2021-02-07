@@ -5,6 +5,7 @@ import 'home_screen.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flushbar/flushbar.dart';
 
+
 class LoginScreen extends StatefulWidget {
   static const routeName = '/login';
 
@@ -13,6 +14,7 @@ class LoginScreen extends StatefulWidget {
   @override
   _LoginState createState() => _LoginState();
 }
+
 
 class _LoginState extends State<LoginScreen> {
   TextEditingController _emailField = TextEditingController();

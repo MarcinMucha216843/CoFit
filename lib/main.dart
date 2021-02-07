@@ -13,6 +13,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'add_calories.dart';
 import 'add_water.dart';
 import 'dashboard_screen.dart';
+import 'database.dart';
 import 'edit_user_screen.dart';
 import 'excercise_screen.dart';
 import 'goals_screen.dart';
@@ -21,6 +22,7 @@ import 'login_screen.dart';
 import 'home_screen.dart';
 import 'my_user.dart';
 import 'profile_screen.dart';
+
 
 var email;
 bool move = true;
@@ -61,26 +63,13 @@ Future _showNotification(
     notifications.show(id, title, body, type);
 
 
+
 Future changeDay() async {
   List<int> stats = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
-  MyUser user = new MyUser(0, 0, 0, "Man", 0, 1.0, 0, 0, new GeoPoint(0.0, 0.0), new GeoPoint(0.0, 0.0), 0, stats, stats, 0, stats);
+  MyUser user = new MyUser(0, 0, 0, "Other", 0, 1.0, 0, 0, new GeoPoint(0.0, 0.0), new GeoPoint(0.0, 0.0), 0, stats, stats, 0, stats);
   await FirebaseFirestore.instance.collection('users').doc(FirebaseAuth.instance.currentUser.uid).get().then((
       result) {
-    user.weight = result.data()['weight'];
-    user.height = result.data()['height'];
-    user.sex = result.data()['sex'];
-    user.age = result.data()['age'];
-    user.points = result.data()['points'];
-    user.activity = result.data()['activity'];
-    user.calories = result.data()['calories'];
-    user.drink = result.data()['drink'];
-    user.geoBefore = result.data()['geoBefore'];
-    user.geoNow = result.data()['geoNow'];
     user.day = result.data()['day'];
-    user.caloriesStatistics = result.data()['caloriesStatistics'].cast<int>();
-    user.drinkStatistics = result.data()['drinkStatistics'].cast<int>();
-    user.burned = result.data()['burned'];
-    user.burnedStatistics = result.data()['burnedStatistics'].cast<int>();
   });
 
   DateTime today = DateTime.now();
@@ -89,11 +78,22 @@ Future changeDay() async {
   if (user.day != day){
     managePoints();
     updateStatistics();
-    await FirebaseFirestore.instance.collection('users').doc(FirebaseAuth.instance.currentUser.uid).update({
-      'day': day,
-    });
+    _updateDay(day);
   }
 }
+
+Future<bool> _updateDay(int day) async {
+  try {
+    Database(uid: FirebaseAuth.instance.currentUser.uid).updateUserDay(day);
+
+    return true;
+  } catch (e) {
+    print(e.toString());
+    return false;
+  }
+}
+
+
 
 void shiftList(List<int> list) {
   int first = list[0];
@@ -108,7 +108,7 @@ void shiftList(List<int> list) {
 
 Future updateStatistics() async {
   List<int> stats = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
-  MyUser user = new MyUser(0, 0, 0, "Man", 0, 1.0, 0, 0, new GeoPoint(0.0, 0.0), new GeoPoint(0.0, 0.0), 0, stats, stats, 0, stats);
+  MyUser user = new MyUser(0, 0, 0, "Other", 0, 1.0, 0, 0, new GeoPoint(0.0, 0.0), new GeoPoint(0.0, 0.0), 0, stats, stats, 0, stats);
   await FirebaseFirestore.instance.collection('users').doc(FirebaseAuth.instance.currentUser.uid).get().then((
       result) {
     user.weight = result.data()['weight'];
@@ -201,8 +201,8 @@ Future updateStatistics() async {
     }
 
   }
-  DateTime temp = DateTime(_year, _month, _day);
-  int differenceDate = today.difference(temp).inDays;
+  DateTime calculated = DateTime(_year, _month, _day);
+  int differenceDate = today.difference(calculated).inDays;
 
   for (int i = 0; i < differenceDate; i++) {
     shiftList(caloriesList);
@@ -221,20 +221,27 @@ Future updateStatistics() async {
   drinkList.last = drinkPercentage.toInt();
   burnedList.last = burnedPercentage.toInt();
 
-  await FirebaseFirestore.instance.collection('users').doc(FirebaseAuth.instance.currentUser.uid).update({
-    'caloriesStatistics': caloriesList,
-  });
-  await FirebaseFirestore.instance.collection('users').doc(FirebaseAuth.instance.currentUser.uid).update({
-    'drinkStatistics': drinkList,
-  });
-  await FirebaseFirestore.instance.collection('users').doc(FirebaseAuth.instance.currentUser.uid).update({
-    'burnedStatistics': burnedList,
-  });
+  _updateStatistics(caloriesList, drinkList, burnedList);
 }
+
+Future<bool> _updateStatistics(List<int> caloriesList, List<int> drinkList, List<int> burnedList) async {
+  try {
+    Database(uid: FirebaseAuth.instance.currentUser.uid).updateUserCaloriesStatistics(caloriesList);
+    Database(uid: FirebaseAuth.instance.currentUser.uid).updateUserDrinkStatistics(drinkList);
+    Database(uid: FirebaseAuth.instance.currentUser.uid).updateUserBurnedStatistics(burnedList);
+
+    return true;
+  } catch (e) {
+    print(e.toString());
+    return false;
+  }
+}
+
+
 
 Future managePoints() async {
   List<int> stats = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
-  MyUser user = new MyUser(0, 0, 0, "Man", 0, 1.0, 0, 0, new GeoPoint(0.0, 0.0), new GeoPoint(0.0, 0.0), 0, stats, stats, 0, stats);
+  MyUser user = new MyUser(0, 0, 0, "Other", 0, 1.0, 0, 0, new GeoPoint(0.0, 0.0), new GeoPoint(0.0, 0.0), 0, stats, stats, 0, stats);
   await FirebaseFirestore.instance.collection('users').doc(FirebaseAuth.instance.currentUser.uid).get().then((
       result) {
     user.weight = result.data()['weight'];
@@ -283,56 +290,61 @@ Future managePoints() async {
 
   user.points += bonus;
 
-  await FirebaseFirestore.instance.collection('users').doc(FirebaseAuth.instance.currentUser.uid).update({
-    'points': user.points,
-  });
-  await FirebaseFirestore.instance.collection('users').doc(FirebaseAuth.instance.currentUser.uid).update({
-    'calories': 0,
-  });
-  await FirebaseFirestore.instance.collection('users').doc(FirebaseAuth.instance.currentUser.uid).update({
-    'drink': 0,
-  });
-  await FirebaseFirestore.instance.collection('users').doc(FirebaseAuth.instance.currentUser.uid).update({
-    'burned': 0,
-  });
+  _updatePoints(user.points);
 }
+
+Future<bool> _updatePoints(int points) async {
+  try {
+    Database(uid: FirebaseAuth.instance.currentUser.uid).updateUserPoints(points);
+    Database(uid: FirebaseAuth.instance.currentUser.uid).updateUserCalories(0);
+    Database(uid: FirebaseAuth.instance.currentUser.uid).updateUserDrink(0);
+    Database(uid: FirebaseAuth.instance.currentUser.uid).updateUserBurned(0);
+
+    return true;
+  } catch (e) {
+    print(e.toString());
+    return false;
+  }
+}
+
+
 
 Future getCurrentPosition() async {
   List<int> stats = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
-  MyUser user = new MyUser(0, 0, 0, "Man", 0, 1.0, 0, 0, new GeoPoint(0.0, 0.0), new GeoPoint(0.0, 0.0), 0, stats, stats, 0, stats);
+  MyUser user = new MyUser(0, 0, 0, "Other", 0, 1.0, 0, 0, new GeoPoint(0.0, 0.0), new GeoPoint(0.0, 0.0), 0, stats, stats, 0, stats);
   await FirebaseFirestore.instance.collection('users').doc(FirebaseAuth.instance.currentUser.uid).get().then((
       result) {
-    user.weight = result.data()['weight'];
-    user.height = result.data()['height'];
-    user.sex = result.data()['sex'];
-    user.age = result.data()['age'];
-    user.points = result.data()['points'];
-    user.activity = result.data()['activity'];
-    user.calories = result.data()['calories'];
-    user.drink = result.data()['drink'];
     user.geoBefore = result.data()['geoBefore'];
     user.geoNow = result.data()['geoNow'];
-    user.day = result.data()['day'];
   });
+
   Position _position;
 
   final position = await Geolocator().getCurrentPosition(desiredAccuracy: LocationAccuracy.high);
   _position = position;
   print(_position);
 
-  await FirebaseFirestore.instance.collection('users').doc(FirebaseAuth.instance.currentUser.uid).update({
-    'geoBefore': user.geoNow,
-  });
-  await FirebaseFirestore.instance.collection('users').doc(FirebaseAuth.instance.currentUser.uid).update({
-    'geoNow': GeoPoint(_position.latitude, _position.longitude),
-  });
+  _updatePosition(user.geoNow, GeoPoint(_position.latitude, _position.longitude));
 
   return _position;
 }
 
+Future<bool> _updatePosition(GeoPoint geoBefore, GeoPoint geoNow) async {
+  try {
+    Database(uid: FirebaseAuth.instance.currentUser.uid).updateUserGeoPoints(geoBefore, geoNow);
+
+    return true;
+  } catch (e) {
+    print(e.toString());
+    return false;
+  }
+}
+
+
+
 Future calculateDistance() async {
   List<int> stats = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
-  MyUser user = new MyUser(0, 0, 0, "Man", 0, 1.0, 0, 0, new GeoPoint(0.0, 0.0), new GeoPoint(0.0, 0.0), 0, stats, stats, 0, stats);
+  MyUser user = new MyUser(0, 0, 0, "Other", 0, 1.0, 0, 0, new GeoPoint(0.0, 0.0), new GeoPoint(0.0, 0.0), 0, stats, stats, 0, stats);
   await FirebaseFirestore.instance.collection('users').doc(FirebaseAuth.instance.currentUser.uid).get().then((
       result) {
     user.geoBefore = result.data()['geoBefore'];
@@ -340,7 +352,7 @@ Future calculateDistance() async {
   });
 
   var result = await Geolocator().distanceBetween(user.geoBefore.latitude, user.geoBefore.longitude, user.geoNow.latitude, user.geoNow.longitude);
-  print(result);
+
   if (result < 20){
     print("Time to move");
     move = false;
@@ -350,8 +362,11 @@ Future calculateDistance() async {
     move = true;
   }
   print(move);
+
   return result;
 }
+
+
 
 void main() async {
   SystemChrome.setSystemUIOverlayStyle(
@@ -382,8 +397,8 @@ void main() async {
   prefs.setInt('visibility', 0);
 
   runApp(MyApp());
-  showNotification();
 
+  showNotification();
   changeDay();
 
   var cron = new Cron();
@@ -398,12 +413,14 @@ void main() async {
   });
 }
 
+
 class MyApp extends StatefulWidget {
   MyApp({Key key}) : super(key: key);
 
   @override
   _MyAppState createState() => _MyAppState();
 }
+
 
 class _MyAppState extends State<MyApp> {
   final notifications = FlutterLocalNotificationsPlugin();

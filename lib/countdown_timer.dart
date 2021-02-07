@@ -4,6 +4,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'dashboard_screen.dart';
 import 'excercise_screen.dart';
 
+
 bool isVisible = true;
 
 removeExcercises() async {
@@ -34,10 +35,12 @@ Future<bool> showButton() async {
   }
 }
 
+
 class CountDownTimer extends StatefulWidget {
   @override
   _CountDownTimerState createState() => _CountDownTimerState();
 }
+
 
 class _CountDownTimerState extends State<CountDownTimer>
     with TickerProviderStateMixin {

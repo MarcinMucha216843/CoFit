@@ -1,4 +1,3 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:flutter/foundation.dart';
@@ -6,6 +5,8 @@ import 'package:flutter/material.dart';
 import 'countdown_timer.dart';
 import 'dashboard_screen.dart';
 import 'dart:math';
+import 'database.dart';
+
 
 String title = "error";
 String link = "error";
@@ -48,67 +49,78 @@ rand() async {
   }
 
   switch(number){
-    case 1: {title = "High knees"; link = "https://firebasestorage.googleapis.com/v0/b/degree20.appspot.com/o/high%20knees.png?alt=media&token=fe32e9a8-4278-4ca2-96b1-1fffa9af8a19";}
+    case 1: {title = "High knees";
+    link = "https://firebasestorage.googleapis.com/v0/b/degree20.appspot.com/o/high%20knees.png?alt=media&token=fe32e9a8-4278-4ca2-96b1-1fffa9af8a19";}
     prefs.setInt('1', number);
     print(title);
     print(link);
     break;
 
-    case 2: {title = "Jumping jacks"; link = "https://firebasestorage.googleapis.com/v0/b/degree20.appspot.com/o/jumping%20jacks.png?alt=media&token=c6f3152c-f84a-4c22-8d9e-cd97c4c02e08";}
+    case 2: {title = "Jumping jacks";
+    link = "https://firebasestorage.googleapis.com/v0/b/degree20.appspot.com/o/jumping%20jacks.png?alt=media&token=c6f3152c-f84a-4c22-8d9e-cd97c4c02e08";}
     prefs.setInt('2', number);
     print(title);
     print(link);
     break;
 
-    case 3: {title = "Knees pull-ins"; link = "https://firebasestorage.googleapis.com/v0/b/degree20.appspot.com/o/knee%20pull.png?alt=media&token=dfb35497-1e35-44be-8418-fc0b65f71655";}
+    case 3: {title = "Knees pull-ins";
+    link = "https://firebasestorage.googleapis.com/v0/b/degree20.appspot.com/o/knee%20pull.png?alt=media&token=dfb35497-1e35-44be-8418-fc0b65f71655";}
     prefs.setInt('3', number);
     print(title);
     print(link);
     break;
 
-    case 4: {title = "Leg raises"; link = "https://firebasestorage.googleapis.com/v0/b/degree20.appspot.com/o/leg%20rises.png?alt=media&token=36fc413e-e096-4e87-834c-816530d715a7";}
+    case 4: {title = "Leg raises";
+    link = "https://firebasestorage.googleapis.com/v0/b/degree20.appspot.com/o/leg%20rises.png?alt=media&token=36fc413e-e096-4e87-834c-816530d715a7";}
     prefs.setInt('4', number);
     print(title);
     print(link);
     break;
 
-    case 5: {title = "Lunge"; link = "https://firebasestorage.googleapis.com/v0/b/degree20.appspot.com/o/lunge.png?alt=media&token=bd44a59a-b956-40d0-91e9-8c5372586d7e";}
+    case 5: {title = "Lunge";
+    link = "https://firebasestorage.googleapis.com/v0/b/degree20.appspot.com/o/lunge.png?alt=media&token=bd44a59a-b956-40d0-91e9-8c5372586d7e";}
     prefs.setInt('5', number);
     print(title);
     print(link);
     break;
 
-    case 6: {title = "Mountain climbers"; link = "https://firebasestorage.googleapis.com/v0/b/degree20.appspot.com/o/mountain%20climbers.png?alt=media&token=bc351771-f68d-432f-b71f-c435c76f3f9f";}
+    case 6: {title = "Mountain climbers";
+    link = "https://firebasestorage.googleapis.com/v0/b/degree20.appspot.com/o/mountain%20climbers.png?alt=media&token=bc351771-f68d-432f-b71f-c435c76f3f9f";}
     prefs.setInt('6', number);
     print(title);
     print(link);
     break;
 
-    case 7: {title = "Pelvic scoop"; link = "https://firebasestorage.googleapis.com/v0/b/degree20.appspot.com/o/pelvic%20scoopp.png?alt=media&token=735d387a-b571-4b33-ad0d-6a8ca5ad1c3c";}
+    case 7: {title = "Pelvic scoop";
+    link = "https://firebasestorage.googleapis.com/v0/b/degree20.appspot.com/o/pelvic%20scoopp.png?alt=media&token=735d387a-b571-4b33-ad0d-6a8ca5ad1c3c";}
     prefs.setInt('7', number);
     print(title);
     print(link);
     break;
 
-    case 8: {title = "Push ups"; link = "https://firebasestorage.googleapis.com/v0/b/degree20.appspot.com/o/push%20up.png?alt=media&token=de68663d-f4df-4caa-a07b-10260c6123d1";}
+    case 8: {title = "Push ups";
+    link = "https://firebasestorage.googleapis.com/v0/b/degree20.appspot.com/o/push%20up.png?alt=media&token=de68663d-f4df-4caa-a07b-10260c6123d1";}
     prefs.setInt('8', number);
     print(title);
     print(link);
     break;
 
-    case 9: {title = "Squats"; link = "https://firebasestorage.googleapis.com/v0/b/degree20.appspot.com/o/squat.png?alt=media&token=f13764ff-7cbf-4c76-b031-5269e5ac2b31";}
+    case 9: {title = "Squats";
+    link = "https://firebasestorage.googleapis.com/v0/b/degree20.appspot.com/o/squat.png?alt=media&token=f13764ff-7cbf-4c76-b031-5269e5ac2b31";}
     prefs.setInt('9', number);
     print(title);
     print(link);
     break;
 
-    case 10: {title = "Toe crunches"; link = "https://firebasestorage.googleapis.com/v0/b/degree20.appspot.com/o/toe%20crunches.png?alt=media&token=56d41144-2831-41a4-8c81-060c31712489";}
+    case 10: {title = "Toe crunches";
+    link = "https://firebasestorage.googleapis.com/v0/b/degree20.appspot.com/o/toe%20crunches.png?alt=media&token=56d41144-2831-41a4-8c81-060c31712489";}
     prefs.setInt('10', number);
     print(title);
     print(link);
     break;
 
-    case 11: {title = "Wall sit"; link = "https://firebasestorage.googleapis.com/v0/b/degree20.appspot.com/o/wall%20sit.png?alt=media&token=e6f23e5f-f5f0-45ee-8f7c-bdf4d8d0acd4";}
+    case 11: {title = "Wall sit";
+    link = "https://firebasestorage.googleapis.com/v0/b/degree20.appspot.com/o/wall%20sit.png?alt=media&token=e6f23e5f-f5f0-45ee-8f7c-bdf4d8d0acd4";}
     prefs.setInt('11', number);
     print(title);
     print(link);
@@ -161,6 +173,7 @@ Widget _buildPopupDialog(BuildContext context) {
   );
 }
 
+
 class ExcerciseScreen extends StatefulWidget {
   static const routeName = '/excercise';
 
@@ -170,10 +183,23 @@ class ExcerciseScreen extends StatefulWidget {
   _ExcerciseScreenState createState() => _ExcerciseScreenState();
 }
 
+
 class _ExcerciseScreenState extends State<ExcerciseScreen> {
   @override
   void initState() {
     super.initState();
+  }
+
+  Future<bool> _updatePointsAndBurned() async {
+    try {
+      Database(uid: FirebaseAuth.instance.currentUser.uid).incrementUserBurned(5);
+      Database(uid: FirebaseAuth.instance.currentUser.uid).incrementUserPoints(1);
+
+      return true;
+    } catch (e) {
+      print(e.toString());
+      return false;
+    }
   }
 
   @override
@@ -264,12 +290,7 @@ class _ExcerciseScreenState extends State<ExcerciseScreen> {
                         builder: (context) => CountDownTimer(),
                       ),
                     );
-                    await FirebaseFirestore.instance.collection('users').doc(FirebaseAuth.instance.currentUser.uid).update({
-                      'points': FieldValue.increment(1),
-                    });
-                    await FirebaseFirestore.instance.collection('users').doc(FirebaseAuth.instance.currentUser.uid).update({
-                      'burned': FieldValue.increment(5),
-                    });
+                    _updatePointsAndBurned();
                   },
                   child: Text("Start excercise")),
             ),

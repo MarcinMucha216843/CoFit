@@ -13,6 +13,7 @@ import 'goals_screen.dart';
 import 'home_screen.dart';
 import 'location_screen.dart';
 
+
 void showNotification(){
   showSilentNotification(FlutterLocalNotificationsPlugin(),
       title: "Let's excercise!", body: "You haven't moved for 3 hours", id: 30);
@@ -48,6 +49,7 @@ Future _showNotification(
     }) =>
     notifications.show(id, title, body, type);
 
+
 class DashboardScreen extends StatefulWidget {
   static const routeName = '/dashboard';
 
@@ -56,6 +58,7 @@ class DashboardScreen extends StatefulWidget {
   @override
   _DashboardScreenState createState() => _DashboardScreenState();
 }
+
 
 class _DashboardScreenState extends State<DashboardScreen> {
   final notifications = FlutterLocalNotificationsPlugin();
@@ -113,144 +116,150 @@ class _DashboardScreenState extends State<DashboardScreen> {
         decoration: BoxDecoration(
           color: Colors.blueAccent,
         ),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Container(
-              width: MediaQuery.of(context).size.width / 1.4,
-              height: 45,
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(15.0),
-                color: Colors.white,
+        child: SingleChildScrollView(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              SizedBox(
+                width: 20.0,
+                height: 70.0,
               ),
-              child: MaterialButton(
-                  onPressed: (){
+              Container(
+                width: MediaQuery.of(context).size.width / 1.4,
+                height: 45,
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(15.0),
+                  color: Colors.white,
+                ),
+                child: MaterialButton(
+                    onPressed: (){
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => ProfileScreen(),
+                        ),
+                      );
+                    },
+                    child: Text("My profile")),
+              ),
+              SizedBox(height: MediaQuery.of(context).size.height / 35),
+              Container(
+                width: MediaQuery.of(context).size.width / 1.4,
+                height: 45,
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(15.0),
+                  color: Colors.white,
+                ),
+                child: MaterialButton(
+                  onPressed: () {
                     Navigator.push(
                       context,
                       MaterialPageRoute(
-                        builder: (context) => ProfileScreen(),
+                        builder: (context) => GoalsScreen(),
                       ),
                     );
                   },
-                  child: Text("My profile")),
-            ),
-            SizedBox(height: MediaQuery.of(context).size.height / 35),
-            Container(
-              width: MediaQuery.of(context).size.width / 1.4,
-              height: 45,
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(15.0),
-                color: Colors.white,
+                  child: Text("Goals"),
+                ),
               ),
-              child: MaterialButton(
-                onPressed: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => GoalsScreen(),
-                    ),
-                  );
-                },
-                child: Text("Goals"),
+              SizedBox(height: MediaQuery.of(context).size.height / 35),
+              Container(
+                width: MediaQuery.of(context).size.width / 1.4,
+                height: 45,
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(15.0),
+                  color: Colors.white,
+                ),
+                child: MaterialButton(
+                    onPressed: (){
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => AddCaloriesScreen(),
+                        ),
+                      );
+                    },
+                    child: Text("Add kilocalories")),
               ),
-            ),
-            SizedBox(height: MediaQuery.of(context).size.height / 35),
-            Container(
-              width: MediaQuery.of(context).size.width / 1.4,
-              height: 45,
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(15.0),
-                color: Colors.white,
+              SizedBox(height: MediaQuery.of(context).size.height / 35),
+              Container(
+                width: MediaQuery.of(context).size.width / 1.4,
+                height: 45,
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(15.0),
+                  color: Colors.white,
+                ),
+                child: MaterialButton(
+                    onPressed: (){
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => AddDrinkScreen(),
+                        ),
+                      );
+                    },
+                    child: Text("Add amount of water")),
               ),
-              child: MaterialButton(
-                  onPressed: (){
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => AddCaloriesScreen(),
-                      ),
-                    );
-                  },
-                  child: Text("Add kilocalories")),
-            ),
-            SizedBox(height: MediaQuery.of(context).size.height / 35),
-            Container(
-              width: MediaQuery.of(context).size.width / 1.4,
-              height: 45,
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(15.0),
-                color: Colors.white,
+              SizedBox(height: MediaQuery.of(context).size.height / 35),
+              Container(
+                width: MediaQuery.of(context).size.width / 1.4,
+                height: 45,
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(15.0),
+                  color: Colors.white,
+                ),
+                child: MaterialButton(
+                    onPressed: (){
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => LocationScreen(),
+                        ),
+                      );
+                    },
+                    child: Text("Location")),
               ),
-              child: MaterialButton(
-                  onPressed: (){
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => AddDrinkScreen(),
-                      ),
-                    );
-                  },
-                  child: Text("Add amount of water")),
-            ),
-            SizedBox(height: MediaQuery.of(context).size.height / 35),
-            Container(
-              width: MediaQuery.of(context).size.width / 1.4,
-              height: 45,
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(15.0),
-                color: Colors.white,
+              SizedBox(height: MediaQuery.of(context).size.height / 35),
+              Container(
+                width: MediaQuery.of(context).size.width / 1.4,
+                height: 45,
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(15.0),
+                  color: Colors.white,
+                ),
+                child: MaterialButton(
+                    onPressed: (){
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => ExcerciseScreen(),
+                        ),
+                      );
+                    },
+                    child: Text("Excercise")),
               ),
-              child: MaterialButton(
-                  onPressed: (){
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => LocationScreen(),
-                      ),
-                    );
-                  },
-                  child: Text("Location")),
-            ),
-            SizedBox(height: MediaQuery.of(context).size.height / 35),
-            Container(
-              width: MediaQuery.of(context).size.width / 1.4,
-              height: 45,
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(15.0),
-                color: Colors.white,
+              SizedBox(height: MediaQuery.of(context).size.height / 35),
+              Container(
+                width: MediaQuery.of(context).size.width / 1.4,
+                height: 45,
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(15.0),
+                  color: Colors.white,
+                ),
+                child: MaterialButton(
+                    onPressed: (){
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => StatisticsScreen(),
+                        ),
+                      );
+                     },
+                    child: Text("Statistics")),
               ),
-              child: MaterialButton(
-                  onPressed: (){
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => ExcerciseScreen(),
-                      ),
-                    );
-                  },
-                  child: Text("Excercise")),
-            ),
-            SizedBox(height: MediaQuery.of(context).size.height / 35),
-            Container(
-              width: MediaQuery.of(context).size.width / 1.4,
-              height: 45,
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(15.0),
-                color: Colors.white,
-              ),
-              child: MaterialButton(
-                  onPressed: (){
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => StatisticsScreen(),
-                      ),
-                    );
-                   },
-                  child: Text("Statistics")),
-            ),
-            SizedBox(height: MediaQuery.of(context).size.height / 35),
-          ],
+              SizedBox(height: MediaQuery.of(context).size.height / 35),
+            ],
+          ),
         ),
       ),
     );

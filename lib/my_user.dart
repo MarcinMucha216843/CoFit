@@ -17,7 +17,8 @@ class MyUser {
   int burned;
   List<int> burnedStatistics;
 
-  MyUser(this.age, this.weight, this.height, this.sex, this.points, this.activity, this.calories, this.drink, this.geoBefore, this.geoNow, this.day, this.caloriesStatistics, this.drinkStatistics, this.burned, this.burnedStatistics);
+  MyUser(this.age, this.weight, this.height, this.sex, this.points, this.activity, this.calories, this.drink, this.geoBefore, this.geoNow,
+      this.day, this.caloriesStatistics, this.drinkStatistics, this.burned, this.burnedStatistics);
 
   Map<String, dynamic> toJson() => {
     'age': age,

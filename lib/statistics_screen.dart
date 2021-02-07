@@ -7,8 +7,9 @@ import 'package:charts_flutter/flutter.dart' as charts;
 import 'dashboard_screen.dart';
 import 'my_user.dart';
 
+
 List<int> stats = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
-MyUser user = MyUser(0, 0, 0, "Man", 0, 1.0, 0, 0, new GeoPoint(0.0, 0.0), new GeoPoint(0.0, 0.0), 0, stats, stats, 0, stats);
+MyUser user = MyUser(0, 0, 0, "Other", 0, 1.0, 0, 0, new GeoPoint(0.0, 0.0), new GeoPoint(0.0, 0.0), 0, stats, stats, 0, stats);
 
 getUserData() async {
   await FirebaseFirestore.instance.collection('users').doc(FirebaseAuth.instance.currentUser.uid).get().then((
@@ -98,6 +99,7 @@ class StatisticsScreen extends StatefulWidget {
   @override
   StatisticsScreenState createState() => StatisticsScreenState();
 }
+
 
 class StatisticsScreenState extends State<StatisticsScreen> {
   List<PercentageSeries> caloriesData = dataBuilderCalories();

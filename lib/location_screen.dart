@@ -5,7 +5,9 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
 import 'dashboard_screen.dart';
+import 'database.dart';
 import 'my_user.dart';
+
 
 class LocationScreen extends StatefulWidget {
   static const routeName = '/location';
@@ -16,9 +18,10 @@ class LocationScreen extends StatefulWidget {
   _LocationScreenState createState() => _LocationScreenState();
 }
 
+
 class _LocationScreenState extends State<LocationScreen> {
   static List<int> stats = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
-  MyUser user = MyUser(0, 0, 0, "Man", 0, 1.0, 0, 0, new GeoPoint(0.0, 0.0), new GeoPoint(0.0, 0.0), 0, stats, stats, 0, stats);
+  MyUser user = MyUser(0, 0, 0, "Other", 0, 1.0, 0, 0, new GeoPoint(0.0, 0.0), new GeoPoint(0.0, 0.0), 0, stats, stats, 0, stats);
   Position _position;
   StreamSubscription<Position> _positionStream;
 
@@ -52,17 +55,23 @@ class _LocationScreenState extends State<LocationScreen> {
     return _position;
   }
 
+  Future<bool> _updatePosition(GeoPoint geoBefore, GeoPoint geoNow) async {
+    try {
+      Database(uid: FirebaseAuth.instance.currentUser.uid).updateUserGeoPoints(geoBefore, geoNow);
+
+      return true;
+    } catch (e) {
+      print(e.toString());
+      return false;
+    }
+  }
+
   Future getCurrentPosition() async {
     final position = await Geolocator().getCurrentPosition(desiredAccuracy: LocationAccuracy.high);
     _position = position;
     print(_position);
 
-    await FirebaseFirestore.instance.collection('users').doc(FirebaseAuth.instance.currentUser.uid).update({
-      'geoBefore': user.geoNow,
-    });
-    await FirebaseFirestore.instance.collection('users').doc(FirebaseAuth.instance.currentUser.uid).update({
-      'geoNow': GeoPoint(_position.latitude, _position.longitude),
-    });
+    _updatePosition(user.geoNow, GeoPoint(_position.latitude, _position.longitude));
 
     return position;
   }

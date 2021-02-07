@@ -5,6 +5,7 @@ import 'package:flushbar/flushbar.dart';
 import 'dashboard_screen.dart';
 import 'database.dart';
 
+
 class AddCaloriesScreen extends StatefulWidget {
   static const routeName = '/addCalories';
 
@@ -14,16 +15,15 @@ class AddCaloriesScreen extends StatefulWidget {
   _AddCaloriesState createState() => _AddCaloriesState();
 }
 
+
 class _AddCaloriesState extends State<AddCaloriesScreen> {
   TextEditingController _caloriesField = TextEditingController();
 
   Future<bool> _updateCalories(int calories) async {
     try {
-      Database(uid: FirebaseAuth.instance.currentUser.uid).updateUserCalories(calories);
+      Database(uid: FirebaseAuth.instance.currentUser.uid).incrementUserCalories(calories);
 
       return true;
-    } on FirebaseAuthException catch (e) {
-      return false;
     } catch (e) {
       print(e.toString());
       return false;

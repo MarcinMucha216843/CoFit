@@ -5,6 +5,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flushbar/flushbar.dart';
 import 'database.dart';
 
+
 class EditUserScreen extends StatefulWidget {
   static const routeName = '/edit';
 
@@ -14,8 +15,9 @@ class EditUserScreen extends StatefulWidget {
   _EditUserState createState() => _EditUserState();
 }
 
+
 class _EditUserState extends State<EditUserScreen> {
-  String dropdownValueSex = 'Man';
+  String dropdownValueSex = 'Other';
   double dropdownValueActivity = 1.0;
 
   TextEditingController _ageField = TextEditingController();

@@ -5,6 +5,7 @@ import 'package:flushbar/flushbar.dart';
 import 'dashboard_screen.dart';
 import 'database.dart';
 
+
 class AddDrinkScreen extends StatefulWidget {
   static const routeName = '/addDrink';
 
@@ -14,16 +15,15 @@ class AddDrinkScreen extends StatefulWidget {
   _AddDrinkState createState() => _AddDrinkState();
 }
 
+
 class _AddDrinkState extends State<AddDrinkScreen> {
   TextEditingController _drinkField = TextEditingController();
 
   Future<bool> _updateDrink(int drink) async {
     try {
-      Database(uid: FirebaseAuth.instance.currentUser.uid).updateUserDrink(drink);
+      Database(uid: FirebaseAuth.instance.currentUser.uid).incrementUserDrink(drink);
 
       return true;
-    } on FirebaseAuthException catch (e) {
-      return false;
     } catch (e) {
       print(e.toString());
       return false;

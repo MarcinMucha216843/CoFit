@@ -2,7 +2,9 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'dashboard_screen.dart';
+import 'database.dart';
 import 'my_user.dart';
+
 
 class GoalsScreen extends StatefulWidget {
   static const routeName = '/goalsboard';
@@ -11,9 +13,10 @@ class GoalsScreen extends StatefulWidget {
   _GoalsScreenState createState() => _GoalsScreenState();
 }
 
+
 class _GoalsScreenState extends State<GoalsScreen> {
   static List<int> stats = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
-  MyUser user = MyUser(0, 0, 0, "Man", 0, 1.0, 0, 0, new GeoPoint(0.0, 0.0), new GeoPoint(0.0, 0.0), 0, stats, stats, 0, stats);
+  MyUser user = MyUser(0, 0, 0, "Other", 0, 1.0, 0, 0, new GeoPoint(0.0, 0.0), new GeoPoint(0.0, 0.0), 0, stats, stats, 0, stats);
 
   @override
   void initState() {
@@ -32,11 +35,21 @@ class _GoalsScreenState extends State<GoalsScreen> {
       user.activity = result.data()['activity'];
       user.calories = result.data()['calories'];
       user.drink = result.data()['drink'];
-      user.geoBefore = result.data()['geoBefore'];
-      user.geoNow = result.data()['geoNow'];
       user.day = result.data()['day'];
       user.burned = result.data()['burned'];
     });
+  }
+
+  Future<bool> _updateCaloriesAndDrink() async {
+    try {
+      Database(uid: FirebaseAuth.instance.currentUser.uid).updateUserCalories(0);
+      Database(uid: FirebaseAuth.instance.currentUser.uid).updateUserDrink(0);
+
+      return true;
+    } catch (e) {
+      print(e.toString());
+      return false;
+    }
   }
 
   double calculateCalories() {
@@ -246,12 +259,7 @@ class _GoalsScreenState extends State<GoalsScreen> {
               Icons.delete ,
             ),
             onPressed: () async {
-              await FirebaseFirestore.instance.collection('users').doc(FirebaseAuth.instance.currentUser.uid).update({
-                'calories': 0,
-              });
-              await FirebaseFirestore.instance.collection('users').doc(FirebaseAuth.instance.currentUser.uid).update({
-                'drink': 0,
-              });
+              _updateCaloriesAndDrink();
             },
           ),
           IconButton(
