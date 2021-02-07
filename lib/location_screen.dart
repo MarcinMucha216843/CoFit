@@ -18,7 +18,7 @@ class LocationScreen extends StatefulWidget {
 
 class _LocationScreenState extends State<LocationScreen> {
   static List<int> stats = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
-  MyUser user = MyUser(0, 0, 0, "Man", 0, 1.0, 0, 0, new GeoPoint(0.0, 0.0), new GeoPoint(0.0, 0.0), 0, stats, stats);
+  MyUser user = MyUser(0, 0, 0, "Man", 0, 1.0, 0, 0, new GeoPoint(0.0, 0.0), new GeoPoint(0.0, 0.0), 0, stats, stats, 0, stats);
   Position _position;
   StreamSubscription<Position> _positionStream;
 
@@ -37,17 +37,8 @@ class _LocationScreenState extends State<LocationScreen> {
     final uid = await FirebaseAuth.instance.currentUser.uid;
     await FirebaseFirestore.instance.collection('users').doc(uid).get().then((
         result) {
-      user.weight = result.data()['weight'];
-      user.height = result.data()['height'];
-      user.sex = result.data()['sex'];
-      user.age = result.data()['age'];
-      user.points = result.data()['points'];
-      user.activity = result.data()['activity'];
-      user.calories = result.data()['calories'];
-      user.drink = result.data()['drink'];
       user.geoBefore = result.data()['geoBefore'];
       user.geoNow = result.data()['geoNow'];
-      user.day = result.data()['day'];
     });
   }
 

@@ -28,7 +28,7 @@ class _RegisterState extends State<RegisterScreen> {
           .createUserWithEmailAndPassword(email: email, password: password);
       FirebaseAuth.instance.currentUser.sendEmailVerification();
       List<int> stats = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
-      Database(uid: FirebaseAuth.instance.currentUser.uid).updateUserInfo(0, 0, 0, 0, "Man", 1.0, 0, 0, GeoPoint(0.0, 0.0), GeoPoint(0.0, 0.0), 0, stats, stats);
+      Database(uid: FirebaseAuth.instance.currentUser.uid).updateUserInfo(0, 0, 0, 0, "Man", 1.0, 0, 0, GeoPoint(0.0, 0.0), GeoPoint(0.0, 0.0), 0, stats, stats, 0, stats);
 
       return true;
     } on FirebaseAuthException catch (e) {

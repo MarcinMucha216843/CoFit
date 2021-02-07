@@ -13,7 +13,7 @@ class GoalsScreen extends StatefulWidget {
 
 class _GoalsScreenState extends State<GoalsScreen> {
   static List<int> stats = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
-  MyUser user = MyUser(0, 0, 0, "Man", 0, 1.0, 0, 0, new GeoPoint(0.0, 0.0), new GeoPoint(0.0, 0.0), 0, stats, stats);
+  MyUser user = MyUser(0, 0, 0, "Man", 0, 1.0, 0, 0, new GeoPoint(0.0, 0.0), new GeoPoint(0.0, 0.0), 0, stats, stats, 0, stats);
 
   @override
   void initState() {
@@ -35,6 +35,7 @@ class _GoalsScreenState extends State<GoalsScreen> {
       user.geoBefore = result.data()['geoBefore'];
       user.geoNow = result.data()['geoNow'];
       user.day = result.data()['day'];
+      user.burned = result.data()['burned'];
     });
   }
 
@@ -79,6 +80,31 @@ class _GoalsScreenState extends State<GoalsScreen> {
       percentage = 100;
     }
     
+    return percentage;
+  }
+
+  double calculateBurned() {
+    int weight = user.weight;
+    String sex = user.sex;
+    double activity = user.activity;
+    double function = 0;
+
+    if (sex == "Man") {
+      function = 1.2 * (0.2 * weight) * 5;
+    }
+    else {
+      function = (0.2 * weight) * 5;
+    }
+
+    return (function * activity).floorToDouble();
+  }
+
+  double burnedPercentage(){
+    double percentage = double.parse(((user.burned/calculateBurned())*100).toStringAsFixed(1));
+    if (percentage > 100){
+      percentage = 100;
+    }
+
     return percentage;
   }
   
@@ -149,6 +175,24 @@ class _GoalsScreenState extends State<GoalsScreen> {
                 style: TextStyle(fontWeight: FontWeight.bold),
               ),
               Text("It's Your recommended amount of water (ml) per day."),
+              SizedBox(
+                width: 20.0,
+                height: 20.0,
+              ),
+              Text(
+                'Your burned kilocalories:',
+                style: TextStyle(fontWeight: FontWeight.bold),
+              ),
+              Text("It's the amount of kilocalories (kcal) You burned today."),
+              SizedBox(
+                width: 20.0,
+                height: 20.0,
+              ),
+              Text(
+                'Daily burned kilocalories requirement:',
+                style: TextStyle(fontWeight: FontWeight.bold),
+              ),
+              Text("It's Your recommended amount of burned kilocalories (kcal) per day."),
               SizedBox(
                 width: 20.0,
                 height: 20.0,
@@ -255,7 +299,7 @@ class _GoalsScreenState extends State<GoalsScreen> {
       children: <Widget>[
         SizedBox(
           width: 20.0,
-          height: 100.0,
+          height: 40.0,
         ),
         FutureBuilder(
             future: getProfileData(),
@@ -414,6 +458,79 @@ class _GoalsScreenState extends State<GoalsScreen> {
                           Text(
                             "${drinkPercentage()}%",
                             style: TextStyle(fontSize: 20, color: setColor(drinkPercentage()), fontWeight: FontWeight.bold),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ],
+                ),
+              );
+            }
+        ),
+        SizedBox(
+          width: 20.0,
+          height: 40.0,
+        ),
+        FutureBuilder(
+            future: getProfileData(),
+            builder: (context, snapshot) {
+              if (snapshot.connectionState == ConnectionState.done) {
+              }
+              return Container(
+                child: Column(
+                  children: <Widget>[
+                    Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Text(
+                        "Your burned kilocalories : ${user.burned} kcal",
+                        style: TextStyle(fontSize: 20, color: Colors.white),
+                      ),
+                    ),
+                  ],
+                ),
+              );
+            }
+        ),
+        FutureBuilder(
+            future: getProfileData(),
+            builder: (context, snapshot) {
+              if (snapshot.connectionState == ConnectionState.done) {
+              }
+              return Container(
+                child: Column(
+                  children: <Widget>[
+                    Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Text(
+                        "Daily burned kcal requirement : ${calculateBurned().toInt()} kcal",
+                        style: TextStyle(fontSize: 20, color: Colors.white),
+                      ),
+                    ),
+                  ],
+                ),
+              );
+            }
+        ),
+        FutureBuilder(
+            future: getProfileData(),
+            builder: (context, snapshot) {
+              if (snapshot.connectionState == ConnectionState.done) {
+              }
+              return Container(
+                child: Column(
+                  children: <Widget>[
+                    Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: <Widget>[
+                          Text(
+                            "Achieved percentage : ",
+                            style: TextStyle(fontSize: 20, color: Colors.white),
+                          ),
+                          Text(
+                            "${burnedPercentage()}%",
+                            style: TextStyle(fontSize: 20, color: setColor(burnedPercentage()), fontWeight: FontWeight.bold),
                           ),
                         ],
                       ),

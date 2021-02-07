@@ -8,13 +8,14 @@ import 'dashboard_screen.dart';
 import 'my_user.dart';
 
 List<int> stats = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
-MyUser user = MyUser(0, 0, 0, "Man", 0, 1.0, 0, 0, new GeoPoint(0.0, 0.0), new GeoPoint(0.0, 0.0), 0, stats, stats);
+MyUser user = MyUser(0, 0, 0, "Man", 0, 1.0, 0, 0, new GeoPoint(0.0, 0.0), new GeoPoint(0.0, 0.0), 0, stats, stats, 0, stats);
 
 getUserData() async {
   await FirebaseFirestore.instance.collection('users').doc(FirebaseAuth.instance.currentUser.uid).get().then((
       result) {
     user.caloriesStatistics = result.data()['caloriesStatistics'].cast<int>();
     user.drinkStatistics = result.data()['drinkStatistics'].cast<int>();
+    user.burnedStatistics = result.data()['burnedStatistics'].cast<int>();
   });
 }
 
@@ -34,17 +35,29 @@ dataBuilderDrink() {
 
   List<PercentageSeries> data = [];
   for (int i = 0; i < user.drinkStatistics.length; i++) {
-    data.add(new PercentageSeries(day: user.caloriesStatistics.length - i, percentage: user.drinkStatistics[i], color: charts.ColorUtil.fromDartColor(Colors.blue)));
+    data.add(new PercentageSeries(day: user.drinkStatistics.length - i, percentage: user.drinkStatistics[i], color: charts.ColorUtil.fromDartColor(Colors.blueAccent)));
   }
 
   return data;
 }
 
+dataBuilderBurned() {
+  getUserData();
+
+  List<PercentageSeries> data = [];
+  for (int i = 0; i < user.burnedStatistics.length; i++) {
+    data.add(new PercentageSeries(day: user.burnedStatistics.length - i, percentage: user.burnedStatistics[i], color: charts.ColorUtil.fromDartColor(Colors.redAccent)));
+  }
+
+  return data;
+}
+
+
 Widget _buildPopupDialog(BuildContext context) {
   return new AlertDialog(
     title: const Text('Information about charts'),
     content: Container(
-      height: 140,
+      height: 180,
       width: 300,
       child: SingleChildScrollView(
         child: Column(
@@ -89,6 +102,7 @@ class StatisticsScreen extends StatefulWidget {
 class StatisticsScreenState extends State<StatisticsScreen> {
   List<PercentageSeries> caloriesData = dataBuilderCalories();
   List<PercentageSeries> drinkData = dataBuilderDrink();
+  List<PercentageSeries> burnedData = dataBuilderBurned();
 
   @override
   Widget build(BuildContext context) {
@@ -107,6 +121,16 @@ class StatisticsScreenState extends State<StatisticsScreen> {
       charts.Series(
         id: "Percent",
         data: drinkData,
+        domainFn: (PercentageSeries series, _) => series.day.toString(),
+        measureFn: (PercentageSeries series, _) => series.percentage,
+        colorFn: (PercentageSeries series, _) => series.color,
+      )
+    ];
+    List<charts.Series<PercentageSeries, String>> burnedSeries =
+    [
+      charts.Series(
+        id: "Percent",
+        data: burnedData,
         domainFn: (PercentageSeries series, _) => series.day.toString(),
         measureFn: (PercentageSeries series, _) => series.percentage,
         colorFn: (PercentageSeries series, _) => series.color,
@@ -154,7 +178,7 @@ class StatisticsScreenState extends State<StatisticsScreen> {
           crossAxisAlignment: CrossAxisAlignment.stretch,
               children: <Widget>[
                 Text(
-                  "Graph of Your achieved caloric goals from last 14 days:",
+                  "Graph of Your achieved kilocalories goals from last 14 days:",
                   style: TextStyle(fontSize: 16, color: Colors.black),
                 ),
                 Container(
@@ -175,8 +199,21 @@ class StatisticsScreenState extends State<StatisticsScreen> {
                   width: 300,
                   child: charts.BarChart(drinkSeries, animate: true),
                 ),
-                ],
-              ),
+                SizedBox(
+                  width: 20.0,
+                  height: 40.0,
+                ),
+                Text(
+                  "Graph of Your achieved burned kilocalories goals from last 14 days:",
+                  style: TextStyle(fontSize: 16, color: Colors.black),
+                ),
+                Container(
+                  height: 430,
+                  width: 300,
+                  child: charts.BarChart(burnedSeries, animate: true),
+                ),
+              ],
+          ),
         ),
       ),
     );

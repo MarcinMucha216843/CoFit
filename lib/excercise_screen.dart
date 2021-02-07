@@ -267,6 +267,9 @@ class _ExcerciseScreenState extends State<ExcerciseScreen> {
                     await FirebaseFirestore.instance.collection('users').doc(FirebaseAuth.instance.currentUser.uid).update({
                       'points': FieldValue.increment(1),
                     });
+                    await FirebaseFirestore.instance.collection('users').doc(FirebaseAuth.instance.currentUser.uid).update({
+                      'burned': FieldValue.increment(5),
+                    });
                   },
                   child: Text("Start excercise")),
             ),
