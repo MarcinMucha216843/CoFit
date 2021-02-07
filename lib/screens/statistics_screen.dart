@@ -1,11 +1,11 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:cofit/statisics_series.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:charts_flutter/flutter.dart' as charts;
 import 'dashboard_screen.dart';
-import 'my_user.dart';
+import '../model/my_user.dart';
+import '../model/statisics_series.dart';
 
 
 List<int> stats = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
@@ -190,7 +190,7 @@ class StatisticsScreenState extends State<StatisticsScreen> {
                 ),
                 SizedBox(
                   width: 20.0,
-                  height: 40.0,
+                  height: 50.0,
                 ),
                 Text(
                   "Graph of Your achieved water goals from last 14 days:",
@@ -203,7 +203,7 @@ class StatisticsScreenState extends State<StatisticsScreen> {
                 ),
                 SizedBox(
                   width: 20.0,
-                  height: 40.0,
+                  height: 50.0,
                 ),
                 Text(
                   "Graph of Your achieved burned kilocalories goals from last 14 days:",

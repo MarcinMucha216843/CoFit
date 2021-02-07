@@ -2,10 +2,10 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'countdown_timer.dart';
-import 'dashboard_screen.dart';
 import 'dart:math';
-import 'database.dart';
+import 'countdown_timer_screen.dart';
+import 'dashboard_screen.dart';
+import '../utils/database.dart';
 
 
 String title = "error";

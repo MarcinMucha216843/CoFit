@@ -3,7 +3,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'dashboard_screen.dart';
 import 'edit_user_screen.dart';
-import 'my_user.dart';
+import '../model/my_user.dart';
 
 
 class ProfileScreen extends StatefulWidget {

@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flushbar/flushbar.dart';
 import 'dashboard_screen.dart';
-import 'database.dart';
+import '../utils/database.dart';
 
 
 class AddCaloriesScreen extends StatefulWidget {

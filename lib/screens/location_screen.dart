@@ -5,8 +5,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
 import 'dashboard_screen.dart';
-import 'database.dart';
-import 'my_user.dart';
+import '../utils/database.dart';
+import '../model/my_user.dart';
 
 
 class LocationScreen extends StatefulWidget {

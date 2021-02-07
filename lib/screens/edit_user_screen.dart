@@ -1,9 +1,9 @@
-import 'package:cofit/profile_screen.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flushbar/flushbar.dart';
-import 'database.dart';
+import 'profile_screen.dart';
+import '../utils/database.dart';
 
 
 class EditUserScreen extends StatefulWidget {

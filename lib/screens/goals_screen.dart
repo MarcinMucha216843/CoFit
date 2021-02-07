@@ -2,8 +2,8 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'dashboard_screen.dart';
-import 'database.dart';
-import 'my_user.dart';
+import '../utils/database.dart';
+import '../model/my_user.dart';
 
 
 class GoalsScreen extends StatefulWidget {

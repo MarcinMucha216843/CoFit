@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flushbar/flushbar.dart';
 import 'home_screen.dart';
-import 'database.dart';
+import '../utils/database.dart';
 
 
 class RegisterScreen extends StatefulWidget {

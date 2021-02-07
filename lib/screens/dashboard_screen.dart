@@ -1,17 +1,17 @@
-import 'package:cofit/profile_screen.dart';
-import 'package:cofit/statistics_screen.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flushbar/flushbar.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'add_calories.dart';
-import 'add_water.dart';
+import 'add_calories_screen.dart';
+import 'add_water_screen.dart';
 import 'excercise_screen.dart';
 import 'goals_screen.dart';
 import 'home_screen.dart';
 import 'location_screen.dart';
+import 'profile_screen.dart';
+import 'statistics_screen.dart';
 
 
 void showNotification(){
