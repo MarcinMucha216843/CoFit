@@ -20,37 +20,30 @@ getUserData() async {
   });
 }
 
-dataBuilderCalories() {
-  getUserData();
+Future<List<List<PercentageSeries>>> loadData() async {
+  await getUserData();
 
-  List<PercentageSeries> data = [];
+  List<PercentageSeries> caloriesList = [];
   for (int i = 0; i < user.caloriesStatistics.length; i++) {
-    data.add(new PercentageSeries(day: user.caloriesStatistics.length - i, percentage: user.caloriesStatistics[i], color: charts.ColorUtil.fromDartColor(Colors.amber)));
+    caloriesList.add(new PercentageSeries(day: user.caloriesStatistics.length - i, percentage: user.caloriesStatistics[i], color: charts.ColorUtil.fromDartColor(Colors.amber)));
   }
 
-  return data;
-}
-
-dataBuilderDrink() {
-  getUserData();
-
-  List<PercentageSeries> data = [];
+  List<PercentageSeries> drinkList = [];
   for (int i = 0; i < user.drinkStatistics.length; i++) {
-    data.add(new PercentageSeries(day: user.drinkStatistics.length - i, percentage: user.drinkStatistics[i], color: charts.ColorUtil.fromDartColor(Colors.blueAccent)));
+    drinkList.add(new PercentageSeries(day: user.drinkStatistics.length - i, percentage: user.drinkStatistics[i], color: charts.ColorUtil.fromDartColor(Colors.blueAccent)));
   }
 
-  return data;
-}
-
-dataBuilderBurned() {
-  getUserData();
-
-  List<PercentageSeries> data = [];
+  List<PercentageSeries> burnedList = [];
   for (int i = 0; i < user.burnedStatistics.length; i++) {
-    data.add(new PercentageSeries(day: user.burnedStatistics.length - i, percentage: user.burnedStatistics[i], color: charts.ColorUtil.fromDartColor(Colors.redAccent)));
+    burnedList.add(new PercentageSeries(day: user.burnedStatistics.length - i, percentage: user.burnedStatistics[i], color: charts.ColorUtil.fromDartColor(Colors.redAccent)));
   }
 
-  return data;
+  List<List<PercentageSeries>> result = [];
+  result.add(caloriesList);
+  result.add(drinkList);
+  result.add(burnedList);
+
+  return result;
 }
 
 
@@ -100,11 +93,28 @@ class StatisticsScreen extends StatefulWidget {
   StatisticsScreenState createState() => StatisticsScreenState();
 }
 
-
 class StatisticsScreenState extends State<StatisticsScreen> {
-  List<PercentageSeries> caloriesData = dataBuilderCalories();
-  List<PercentageSeries> drinkData = dataBuilderDrink();
-  List<PercentageSeries> burnedData = dataBuilderBurned();
+  bool isLoaded = false;
+  List<PercentageSeries> caloriesData;
+  List<PercentageSeries> drinkData;
+  List<PercentageSeries> burnedData;
+
+  @override
+  void initState() {
+    super.initState();
+    initData();
+  }
+
+  Future<void> initData() async {
+    await loadData().then((val) => setState(() {
+      if (val != null) {
+        caloriesData = val[0];
+        drinkData = val[1];
+        burnedData = val[2];
+        isLoaded = true;
+      }
+    }));
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -139,7 +149,7 @@ class StatisticsScreenState extends State<StatisticsScreen> {
       )
     ];
 
-    return Scaffold(
+    return !isLoaded ? SizedBox() : Scaffold(
       appBar: AppBar(
         automaticallyImplyLeading: false,
         title: Row(
