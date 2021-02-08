@@ -1,7 +1,5 @@
 import 'dart:async';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'screens/register_screen.dart';
-import 'screens/statistics_screen.dart';
 import 'package:cron/cron.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -13,15 +11,18 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'screens/add_calories_screen.dart';
 import 'screens/add_water_screen.dart';
 import 'screens/dashboard_screen.dart';
-import 'utils/database.dart';
 import 'screens/edit_user_screen.dart';
 import 'screens/excercise_screen.dart';
 import 'screens/goals_screen.dart';
+import 'screens/home_screen.dart';
 import 'screens/location_screen.dart';
 import 'screens/login_screen.dart';
-import 'screens/home_screen.dart';
-import 'model/my_user.dart';
 import 'screens/profile_screen.dart';
+import 'screens/register_screen.dart';
+import 'screens/splash_screen.dart';
+import 'screens/statistics_screen.dart';
+import 'utils/database.dart';
+import 'model/my_user.dart';
 
 
 var email;
@@ -396,7 +397,8 @@ void main() async {
   prefs.remove('counter');
   prefs.setInt('visibility', 0);
 
-  runApp(MyApp());
+  SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp])
+      .then((value) => runApp(MyApp()));
 
   showNotification();
   changeDay();
@@ -446,52 +448,61 @@ class _MyAppState extends State<MyApp> {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      home: email == null ? HomeScreen() : DashboardScreen(),
-      title: 'CoFit',
-      theme: ThemeData(
-        primarySwatch: Colors.deepPurple,
-        accentColor: Colors.orange,
-        cursorColor: Colors.orange,
-        textTheme: TextTheme(
-          display2: TextStyle(
-            fontFamily: 'OpenSans',
-            fontSize: 45.0,
-            color: Colors.orange,
-          ),
-          button: TextStyle(
-            fontFamily: 'OpenSans',
-          ),
-          caption: TextStyle(
-            fontFamily: 'NotoSans',
-            fontSize: 12.0,
-            fontWeight: FontWeight.normal,
-            color: Colors.deepPurple[300],
-          ),
-          display4: TextStyle(fontFamily: 'Quicksand'),
-          display3: TextStyle(fontFamily: 'Quicksand'),
-          display1: TextStyle(fontFamily: 'Quicksand'),
-          headline: TextStyle(fontFamily: 'NotoSans'),
-          title: TextStyle(fontFamily: 'NotoSans'),
-          subhead: TextStyle(fontFamily: 'NotoSans'),
-          body2: TextStyle(fontFamily: 'NotoSans'),
-          body1: TextStyle(fontFamily: 'NotoSans'),
-          subtitle: TextStyle(fontFamily: 'NotoSans'),
-          overline: TextStyle(fontFamily: 'NotoSans'),
-        ),
-      ),
-      routes: {
-        LoginScreen.routeName: (context) => LoginScreen(),
-        RegisterScreen.routeName: (context) => RegisterScreen(),
-        DashboardScreen.routeName: (context) => DashboardScreen(),
-        AddCaloriesScreen.routeName: (context) => AddCaloriesScreen(),
-        AddDrinkScreen.routeName: (context) => AddDrinkScreen(),
-        ProfileScreen.routeName: (context) => ProfileScreen(),
-        EditUserScreen.routeName: (context) => EditUserScreen(),
-        GoalsScreen.routeName: (context) => GoalsScreen(),
-        LocationScreen.routeName: (context) => LocationScreen(),
-        ExcerciseScreen.routeName: (context) => ExcerciseScreen(),
-        StatisticsScreen.routeName: (context) => StatisticsScreen(),
+    return FutureBuilder(
+      future: Future.delayed(Duration(seconds: 3)),
+      builder: (context, AsyncSnapshot snapshot) {
+        if (snapshot.connectionState == ConnectionState.waiting) {
+          return MaterialApp(home: Splash());
+        } else {
+          return MaterialApp(
+            home: email == null ? HomeScreen() : DashboardScreen(),
+            title: 'CoFit',
+            theme: ThemeData(
+              primarySwatch: Colors.deepPurple,
+              accentColor: Colors.orange,
+              cursorColor: Colors.orange,
+              textTheme: TextTheme(
+                display2: TextStyle(
+                  fontFamily: 'OpenSans',
+                  fontSize: 45.0,
+                  color: Colors.orange,
+                ),
+                button: TextStyle(
+                  fontFamily: 'OpenSans',
+                ),
+                caption: TextStyle(
+                  fontFamily: 'NotoSans',
+                  fontSize: 12.0,
+                  fontWeight: FontWeight.normal,
+                  color: Colors.deepPurple[300],
+                ),
+                display4: TextStyle(fontFamily: 'Quicksand'),
+                display3: TextStyle(fontFamily: 'Quicksand'),
+                display1: TextStyle(fontFamily: 'Quicksand'),
+                headline: TextStyle(fontFamily: 'NotoSans'),
+                title: TextStyle(fontFamily: 'NotoSans'),
+                subhead: TextStyle(fontFamily: 'NotoSans'),
+                body2: TextStyle(fontFamily: 'NotoSans'),
+                body1: TextStyle(fontFamily: 'NotoSans'),
+                subtitle: TextStyle(fontFamily: 'NotoSans'),
+                overline: TextStyle(fontFamily: 'NotoSans'),
+              ),
+            ),
+            routes: {
+              LoginScreen.routeName: (context) => LoginScreen(),
+              RegisterScreen.routeName: (context) => RegisterScreen(),
+              DashboardScreen.routeName: (context) => DashboardScreen(),
+              AddCaloriesScreen.routeName: (context) => AddCaloriesScreen(),
+              AddDrinkScreen.routeName: (context) => AddDrinkScreen(),
+              ProfileScreen.routeName: (context) => ProfileScreen(),
+              EditUserScreen.routeName: (context) => EditUserScreen(),
+              GoalsScreen.routeName: (context) => GoalsScreen(),
+              LocationScreen.routeName: (context) => LocationScreen(),
+              ExcerciseScreen.routeName: (context) => ExcerciseScreen(),
+              StatisticsScreen.routeName: (context) => StatisticsScreen(),
+            },
+          );
+        }
       },
     );
   }
