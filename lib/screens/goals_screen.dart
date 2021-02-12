@@ -358,7 +358,7 @@ class _GoalsScreenState extends State<GoalsScreen> {
       children: <Widget>[
         SizedBox(
           width: 20.0,
-          height: 40.0,
+          height: 30.0,
         ),
         FutureBuilder(
             future: getProfileData(),
@@ -375,52 +375,26 @@ class _GoalsScreenState extends State<GoalsScreen> {
                         style: TextStyle(fontSize: 20, color: Colors.white),
                       ),
                     ),
-                  ],
-                ),
-              );
-            }
-        ),
-        FutureBuilder(
-            future: getProfileData(),
-            builder: (context, snapshot) {
-              if (snapshot.connectionState == ConnectionState.done) {
-              }
-              return Container(
-                child: Column(
-                  children: <Widget>[
                     Padding(
                       padding: const EdgeInsets.all(8.0),
                       child: Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: <Widget>[
-                            Text(
-                              "Your BMI : ",
-                              style: TextStyle(fontSize: 20, color: Colors.white),
-                            ),
-                            Text(
-                              "${calculateBMI().toStringAsFixed(2)}",
-                              style: TextStyle(fontSize: 20, color: setBmiColor(calculateBMI()), fontWeight: FontWeight.bold),
-                            ),
-                          ],
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: <Widget>[
+                          Text(
+                            "Your BMI : ",
+                            style: TextStyle(fontSize: 20, color: Colors.white),
+                          ),
+                          Text(
+                            "${calculateBMI().toStringAsFixed(2)}",
+                            style: TextStyle(fontSize: 20, color: setBmiColor(calculateBMI()), fontWeight: FontWeight.bold),
+                          ),
+                        ],
                       ),
                     ),
-                  ],
-                ),
-              );
-            }
-        ),
-        SizedBox(
-          width: 20.0,
-          height: 40.0,
-        ),
-        FutureBuilder(
-            future: getProfileData(),
-            builder: (context, snapshot) {
-              if (snapshot.connectionState == ConnectionState.done) {
-              }
-              return Container(
-                child: Column(
-                  children: <Widget>[
+                    SizedBox(
+                      width: 20.0,
+                      height: 40.0,
+                    ),
                     Padding(
                       padding: const EdgeInsets.all(8.0),
                       child: Text(
@@ -428,19 +402,6 @@ class _GoalsScreenState extends State<GoalsScreen> {
                         style: TextStyle(fontSize: 20, color: Colors.white),
                       ),
                     ),
-                  ],
-                ),
-              );
-            }
-        ),
-        FutureBuilder(
-            future: getProfileData(),
-            builder: (context, snapshot) {
-              if (snapshot.connectionState == ConnectionState.done) {
-              }
-              return Container(
-                child: Column(
-                  children: <Widget>[
                     Padding(
                       padding: const EdgeInsets.all(8.0),
                       child: Text(
@@ -448,19 +409,6 @@ class _GoalsScreenState extends State<GoalsScreen> {
                         style: TextStyle(fontSize: 20, color: Colors.white),
                       ),
                     ),
-                  ],
-                ),
-              );
-            }
-        ),
-        FutureBuilder(
-            future: getProfileData(),
-            builder: (context, snapshot) {
-              if (snapshot.connectionState == ConnectionState.done) {
-              }
-              return Container(
-                child: Column(
-                  children: <Widget>[
                     Padding(
                       padding: const EdgeInsets.all(8.0),
                       child: Row(
@@ -477,23 +425,10 @@ class _GoalsScreenState extends State<GoalsScreen> {
                         ],
                       ),
                     ),
-                  ],
-                ),
-              );
-            }
-        ),
-        SizedBox(
-          width: 20.0,
-          height: 40.0,
-        ),
-        FutureBuilder(
-            future: getProfileData(),
-            builder: (context, snapshot) {
-              if (snapshot.connectionState == ConnectionState.done) {
-              }
-              return Container(
-                child: Column(
-                  children: <Widget>[
+                    SizedBox(
+                      width: 20.0,
+                      height: 40.0,
+                    ),
                     Padding(
                       padding: const EdgeInsets.all(8.0),
                       child: Text(
@@ -501,19 +436,6 @@ class _GoalsScreenState extends State<GoalsScreen> {
                         style: TextStyle(fontSize: 20, color: Colors.white),
                       ),
                     ),
-                  ],
-                ),
-              );
-            }
-        ),
-        FutureBuilder(
-            future: getProfileData(),
-            builder: (context, snapshot) {
-              if (snapshot.connectionState == ConnectionState.done) {
-              }
-              return Container(
-                child: Column(
-                  children: <Widget>[
                     Padding(
                       padding: const EdgeInsets.all(8.0),
                       child: Text(
@@ -521,19 +443,6 @@ class _GoalsScreenState extends State<GoalsScreen> {
                         style: TextStyle(fontSize: 20, color: Colors.white),
                       ),
                     ),
-                  ],
-                ),
-              );
-            }
-        ),
-        FutureBuilder(
-            future: getProfileData(),
-            builder: (context, snapshot) {
-              if (snapshot.connectionState == ConnectionState.done) {
-              }
-              return Container(
-                child: Column(
-                  children: <Widget>[
                     Padding(
                       padding: const EdgeInsets.all(8.0),
                       child: Row(
@@ -550,23 +459,10 @@ class _GoalsScreenState extends State<GoalsScreen> {
                         ],
                       ),
                     ),
-                  ],
-                ),
-              );
-            }
-        ),
-        SizedBox(
-          width: 20.0,
-          height: 40.0,
-        ),
-        FutureBuilder(
-            future: getProfileData(),
-            builder: (context, snapshot) {
-              if (snapshot.connectionState == ConnectionState.done) {
-              }
-              return Container(
-                child: Column(
-                  children: <Widget>[
+                    SizedBox(
+                      width: 20.0,
+                      height: 40.0,
+                    ),
                     Padding(
                       padding: const EdgeInsets.all(8.0),
                       child: Text(
@@ -574,19 +470,6 @@ class _GoalsScreenState extends State<GoalsScreen> {
                         style: TextStyle(fontSize: 20, color: Colors.white),
                       ),
                     ),
-                  ],
-                ),
-              );
-            }
-        ),
-        FutureBuilder(
-            future: getProfileData(),
-            builder: (context, snapshot) {
-              if (snapshot.connectionState == ConnectionState.done) {
-              }
-              return Container(
-                child: Column(
-                  children: <Widget>[
                     Padding(
                       padding: const EdgeInsets.all(8.0),
                       child: Text(
@@ -594,19 +477,6 @@ class _GoalsScreenState extends State<GoalsScreen> {
                         style: TextStyle(fontSize: 20, color: Colors.white),
                       ),
                     ),
-                  ],
-                ),
-              );
-            }
-        ),
-        FutureBuilder(
-            future: getProfileData(),
-            builder: (context, snapshot) {
-              if (snapshot.connectionState == ConnectionState.done) {
-              }
-              return Container(
-                child: Column(
-                  children: <Widget>[
                     Padding(
                       padding: const EdgeInsets.all(8.0),
                       child: Row(

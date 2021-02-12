@@ -162,6 +162,10 @@ class _ProfileScreenState extends State<ProfileScreen> {
             builder: (context, snapshot) {
               if (snapshot.connectionState == ConnectionState.done) {
                 _userAgeController.text = user.age.toString();
+                _userHeightController.text = user.height.toString();
+                _userWeightController.text = user.weight.toString();
+                _userSexController.text = user.sex;
+                _userActivityController.text = user.activity.toString();
               }
               return Container(
                 child: Column(
@@ -173,20 +177,6 @@ class _ProfileScreenState extends State<ProfileScreen> {
                         style: TextStyle(fontSize: 20, color: Colors.white),
                       ),
                     ),
-                  ],
-                ),
-              );
-            }
-        ),
-        FutureBuilder(
-            future: getProfileData(),
-            builder: (context, snapshot) {
-              if (snapshot.connectionState == ConnectionState.done) {
-                _userHeightController.text = user.height.toString();
-              }
-              return Container(
-                child: Column(
-                  children: <Widget>[
                     Padding(
                       padding: const EdgeInsets.all(8.0),
                       child: Text(
@@ -194,20 +184,6 @@ class _ProfileScreenState extends State<ProfileScreen> {
                         style: TextStyle(fontSize: 20, color: Colors.white),
                       ),
                     ),
-                  ],
-                ),
-              );
-            }
-        ),
-        FutureBuilder(
-            future: getProfileData(),
-            builder: (context, snapshot) {
-              if (snapshot.connectionState == ConnectionState.done) {
-                _userWeightController.text = user.weight.toString();
-              }
-              return Container(
-                child: Column(
-                  children: <Widget>[
                     Padding(
                       padding: const EdgeInsets.all(8.0),
                       child: Text(
@@ -215,20 +191,6 @@ class _ProfileScreenState extends State<ProfileScreen> {
                         style: TextStyle(fontSize: 20, color: Colors.white),
                       ),
                     ),
-                  ],
-                ),
-              );
-            }
-        ),
-        FutureBuilder(
-            future: getProfileData(),
-            builder: (context, snapshot) {
-              if (snapshot.connectionState == ConnectionState.done) {
-                _userSexController.text = user.sex;
-              }
-              return Container(
-                child: Column(
-                  children: <Widget>[
                     Padding(
                       padding: const EdgeInsets.all(8.0),
                       child: Text(
@@ -236,20 +198,6 @@ class _ProfileScreenState extends State<ProfileScreen> {
                         style: TextStyle(fontSize: 20, color: Colors.white),
                       ),
                     ),
-                  ],
-                ),
-              );
-            }
-        ),
-        FutureBuilder(
-            future: getProfileData(),
-            builder: (context, snapshot) {
-              if (snapshot.connectionState == ConnectionState.done) {
-                _userActivityController.text = user.activity.toString();
-              }
-              return Container(
-                child: Column(
-                  children: <Widget>[
                     Padding(
                       padding: const EdgeInsets.all(8.0),
                       child: Text(

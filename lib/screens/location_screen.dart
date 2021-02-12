@@ -138,19 +138,6 @@ class _LocationScreenState extends State<LocationScreen> {
                         style: TextStyle(fontSize: 20, color: Colors.white),
                       ),
                     ),
-                  ],
-                ),
-              );
-            }
-        ),
-        FutureBuilder(
-            future: getProfileData(),
-            builder: (context, snapshot) {
-              if (snapshot.connectionState == ConnectionState.done) {
-              }
-              return Container(
-                child: Column(
-                  children: <Widget>[
                     Padding(
                       padding: const EdgeInsets.all(8.0),
                       child: Text(
@@ -158,19 +145,6 @@ class _LocationScreenState extends State<LocationScreen> {
                         style: TextStyle(fontSize: 20, color: Colors.white),
                       ),
                     ),
-                  ],
-                ),
-              );
-            }
-        ),
-        FutureBuilder(
-            future: getProfileData(),
-            builder: (context, snapshot) {
-              if (snapshot.connectionState == ConnectionState.done) {
-              }
-              return Container(
-                child: Column(
-                  children: <Widget>[
                     Padding(
                       padding: const EdgeInsets.all(8.0),
                       child: Text(

@@ -227,7 +227,7 @@ class _EditUserState extends State<EditUserScreen> {
                         dropdownValueSex = newValue;
                       });
                     },
-                    items: <String>['Man', 'Woman', 'Other']
+                    items: <String>['Other', 'Man', 'Woman']
                         .map<DropdownMenuItem<String>>((String value) {
                       return DropdownMenuItem<String>(
                         value: value,
