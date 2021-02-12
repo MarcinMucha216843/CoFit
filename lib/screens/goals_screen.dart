@@ -122,14 +122,40 @@ class _GoalsScreenState extends State<GoalsScreen> {
   }
   
   Color setColor(double percentage) {
-    if(percentage < 40){
+    if (percentage < 40) {
       return Colors.red;
     }
-    else if(percentage < 80){
+    else if (percentage < 80) {
       return Colors.amber;
     }
     else {
       return Colors.lightGreen[900];
+    }
+  }
+
+  double calculateBMI() {
+    int weight = user.weight;
+    double height = user.height / 100;
+    double bmi = weight / (height * height);
+
+    return bmi;
+  }
+
+  Color setBmiColor(double bmi) {
+    if (bmi < 16.99) {
+      return Colors.red;
+    }
+    else if (bmi < 18.49) {
+      return Colors.amber;
+    }
+    else if (bmi < 24.99) {
+      return Colors.lightGreen[900];
+    }
+    else if (bmi < 29.99) {
+      return Colors.amber;
+    }
+    else {
+      return Colors.red;
     }
   }
 
@@ -152,6 +178,31 @@ class _GoalsScreenState extends State<GoalsScreen> {
                 style: TextStyle(fontWeight: FontWeight.bold),
               ),
               Text("It's the number of points You collected."),
+              SizedBox(
+                width: 20.0,
+                height: 20.0,
+              ),
+              Text(
+                'BMI:',
+                style: TextStyle(fontWeight: FontWeight.bold),
+              ),
+              Text("It's Your Body Mass Index."),
+              SizedBox(
+                width: 20.0,
+                height: 20.0,
+              ),
+              Text("Values and categories:"),
+              Text("BMI < 15     - very severely underweight"),
+              Text("BMI < 16     - severely underweight"),
+              Text("BMI < 18.5  - underweight"),
+              Text("BMI < 25     - normal (healthy weight)"),
+              Text("BMI < 30     - overweight"),
+              Text("BMI < 35     - obese class I (moderately "),
+              Text("                       obese)"),
+              Text("BMI < 40     - obese class II (severely "),
+              Text("                       obese)"),
+              Text("BMI > 40     - obese class III (very "),
+              Text("                       severely obese)"),
               SizedBox(
                 width: 20.0,
                 height: 20.0,
@@ -322,6 +373,35 @@ class _GoalsScreenState extends State<GoalsScreen> {
                       child: Text(
                         "Your points : ${user.points} points",
                         style: TextStyle(fontSize: 20, color: Colors.white),
+                      ),
+                    ),
+                  ],
+                ),
+              );
+            }
+        ),
+        FutureBuilder(
+            future: getProfileData(),
+            builder: (context, snapshot) {
+              if (snapshot.connectionState == ConnectionState.done) {
+              }
+              return Container(
+                child: Column(
+                  children: <Widget>[
+                    Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: <Widget>[
+                            Text(
+                              "Your BMI : ",
+                              style: TextStyle(fontSize: 20, color: Colors.white),
+                            ),
+                            Text(
+                              "${calculateBMI().toStringAsFixed(2)}",
+                              style: TextStyle(fontSize: 20, color: setBmiColor(calculateBMI()), fontWeight: FontWeight.bold),
+                            ),
+                          ],
                       ),
                     ),
                   ],
