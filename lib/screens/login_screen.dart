@@ -4,6 +4,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flushbar/flushbar.dart';
 import 'dashboard_screen.dart';
 import 'home_screen.dart';
+import '../utils/check_internet_status.dart';
 
 
 class LoginScreen extends StatefulWidget {
@@ -21,6 +22,17 @@ class _LoginState extends State<LoginScreen> {
   TextEditingController _passwordField = TextEditingController();
   bool _isHidden = true;
 
+  @override
+  void initState() {
+    super.initState();
+    CheckInternetStatus().checkConnection(context);
+  }
+
+  @override
+  void dispose() {
+    CheckInternetStatus().listener.cancel();
+    super.dispose();
+  }
 
   Future<bool> _loginUser(String email, String password) async {
     try {

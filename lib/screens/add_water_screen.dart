@@ -4,6 +4,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flushbar/flushbar.dart';
 import 'dashboard_screen.dart';
 import '../utils/database.dart';
+import '../utils/check_internet_status.dart';
 
 
 class AddDrinkScreen extends StatefulWidget {
@@ -18,6 +19,18 @@ class AddDrinkScreen extends StatefulWidget {
 
 class _AddDrinkState extends State<AddDrinkScreen> {
   TextEditingController _drinkField = TextEditingController();
+
+  @override
+  void initState() {
+    super.initState();
+    CheckInternetStatus().checkConnection(context);
+  }
+
+  @override
+  void dispose() {
+    CheckInternetStatus().listener.cancel();
+    super.dispose();
+  }
 
   Future<bool> _updateDrink(int drink) async {
     try {

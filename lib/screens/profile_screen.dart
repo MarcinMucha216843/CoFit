@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'dashboard_screen.dart';
 import 'edit_user_screen.dart';
 import '../model/my_user.dart';
+import '../utils/check_internet_status.dart';
 
 
 class ProfileScreen extends StatefulWidget {
@@ -26,6 +27,13 @@ class _ProfileScreenState extends State<ProfileScreen> {
   @override
   void initState() {
     super.initState();
+    CheckInternetStatus().checkConnection(context);
+  }
+
+  @override
+  void dispose() {
+    CheckInternetStatus().listener.cancel();
+    super.dispose();
   }
 
   getProfileData() async {

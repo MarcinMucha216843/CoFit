@@ -11,6 +11,7 @@ import 'goals_screen.dart';
 import 'home_screen.dart';
 import 'profile_screen.dart';
 import 'statistics_screen.dart';
+import '../utils/check_internet_status.dart';
 
 
 void showNotification(){
@@ -65,6 +66,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
   @override
   void initState() {
     super.initState();
+    CheckInternetStatus().checkConnection(context);
 
     final settingsAndroid = AndroidInitializationSettings('ic_launcher');
     final settingsIOS = IOSInitializationSettings(
@@ -74,6 +76,12 @@ class _DashboardScreenState extends State<DashboardScreen> {
     notifications.initialize(
         InitializationSettings(android: settingsAndroid, iOS: settingsIOS),
         onSelectNotification: onSelectNotification);
+  }
+
+  @override
+  void dispose() {
+    CheckInternetStatus().listener.cancel();
+    super.dispose();
   }
 
   Future onSelectNotification(String payload) async => await Navigator.push(
@@ -121,7 +129,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
             children: [
               SizedBox(
                 width: 20.0,
-                height: 70.0,
+                height: 100.0,
               ),
               Container(
                 width: MediaQuery.of(context).size.width / 1.4,

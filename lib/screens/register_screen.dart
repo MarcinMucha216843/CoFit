@@ -4,6 +4,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flushbar/flushbar.dart';
 import 'home_screen.dart';
 import '../utils/database.dart';
+import '../utils/check_internet_status.dart';
 
 
 class RegisterScreen extends StatefulWidget {
@@ -23,6 +24,17 @@ class _RegisterState extends State<RegisterScreen> {
   bool _isHidden = true;
   bool _isHidden2 = true;
 
+  @override
+  void initState() {
+    super.initState();
+    CheckInternetStatus().checkConnection(context);
+  }
+
+  @override
+  void dispose() {
+    CheckInternetStatus().listener.cancel();
+    super.dispose();
+  }
 
   Future<bool> _registerUser(String email, String password) async {
     try {

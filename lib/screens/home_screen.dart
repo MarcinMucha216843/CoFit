@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'login_screen.dart';
 import 'register_screen.dart';
+import '../utils/check_internet_status.dart';
 
 
 class HomeScreen extends StatefulWidget {
@@ -14,6 +15,18 @@ class HomeScreen extends StatefulWidget {
 
 
 class _HomeState extends State<HomeScreen> {
+  @override
+  void initState() {
+    super.initState();
+    CheckInternetStatus().checkConnection(context);
+  }
+
+  @override
+  void dispose() {
+    CheckInternetStatus().listener.cancel();
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(

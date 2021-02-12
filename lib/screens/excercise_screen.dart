@@ -6,6 +6,7 @@ import 'dart:math';
 import 'countdown_timer_screen.dart';
 import 'dashboard_screen.dart';
 import '../utils/database.dart';
+import '../utils/check_internet_status.dart';
 
 
 String title = "error";
@@ -188,6 +189,13 @@ class _ExcerciseScreenState extends State<ExcerciseScreen> {
   @override
   void initState() {
     super.initState();
+    CheckInternetStatus().checkConnection(context);
+  }
+
+  @override
+  void dispose() {
+    CheckInternetStatus().listener.cancel();
+    super.dispose();
   }
 
   Future<bool> _updatePointsAndBurned() async {

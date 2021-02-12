@@ -6,6 +6,7 @@ import 'package:charts_flutter/flutter.dart' as charts;
 import 'dashboard_screen.dart';
 import '../model/my_user.dart';
 import '../model/statisics_series.dart';
+import '../utils/check_internet_status.dart';
 
 
 List<int> stats = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
@@ -102,7 +103,14 @@ class StatisticsScreenState extends State<StatisticsScreen> {
   @override
   void initState() {
     super.initState();
+    CheckInternetStatus().checkConnection(context);
     initData();
+  }
+
+  @override
+  void dispose() {
+    CheckInternetStatus().listener.cancel();
+    super.dispose();
   }
 
   Future<void> initData() async {

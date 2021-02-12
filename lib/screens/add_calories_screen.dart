@@ -4,6 +4,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flushbar/flushbar.dart';
 import 'dashboard_screen.dart';
 import '../utils/database.dart';
+import '../utils/check_internet_status.dart';
 
 
 class AddCaloriesScreen extends StatefulWidget {
@@ -18,6 +19,18 @@ class AddCaloriesScreen extends StatefulWidget {
 
 class _AddCaloriesState extends State<AddCaloriesScreen> {
   TextEditingController _caloriesField = TextEditingController();
+
+  @override
+  void initState() {
+    super.initState();
+    CheckInternetStatus().checkConnection(context);
+  }
+
+  @override
+  void dispose() {
+    CheckInternetStatus().listener.cancel();
+    super.dispose();
+  }
 
   Future<bool> _updateCalories(int calories) async {
     try {

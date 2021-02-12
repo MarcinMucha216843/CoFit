@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'dashboard_screen.dart';
 import '../utils/database.dart';
 import '../model/my_user.dart';
+import '../utils/check_internet_status.dart';
 
 
 class GoalsScreen extends StatefulWidget {
@@ -21,6 +22,13 @@ class _GoalsScreenState extends State<GoalsScreen> {
   @override
   void initState() {
     super.initState();
+    CheckInternetStatus().checkConnection(context);
+  }
+
+  @override
+  void dispose() {
+    CheckInternetStatus().listener.cancel();
+    super.dispose();
   }
 
   getProfileData() async {

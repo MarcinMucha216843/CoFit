@@ -4,6 +4,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flushbar/flushbar.dart';
 import 'profile_screen.dart';
 import '../utils/database.dart';
+import '../utils/check_internet_status.dart';
 
 
 class EditUserScreen extends StatefulWidget {
@@ -23,6 +24,18 @@ class _EditUserState extends State<EditUserScreen> {
   TextEditingController _ageField = TextEditingController();
   TextEditingController _weightField = TextEditingController();
   TextEditingController _heightField = TextEditingController();
+
+  @override
+  void initState() {
+    super.initState();
+    CheckInternetStatus().checkConnection(context);
+  }
+
+  @override
+  void dispose() {
+    CheckInternetStatus().listener.cancel();
+    super.dispose();
+  }
 
   Future<bool> _updateUser(int age, int weight, int height, String sex, double activity) async {
     try {
