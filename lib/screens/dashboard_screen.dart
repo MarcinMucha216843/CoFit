@@ -9,7 +9,6 @@ import 'add_water_screen.dart';
 import 'excercise_screen.dart';
 import 'goals_screen.dart';
 import 'home_screen.dart';
-import 'location_screen.dart';
 import 'profile_screen.dart';
 import 'statistics_screen.dart';
 
@@ -199,25 +198,6 @@ class _DashboardScreenState extends State<DashboardScreen> {
                       );
                     },
                     child: Text("Add amount of water")),
-              ),
-              SizedBox(height: MediaQuery.of(context).size.height / 35),
-              Container(
-                width: MediaQuery.of(context).size.width / 1.4,
-                height: 45,
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(15.0),
-                  color: Colors.white,
-                ),
-                child: MaterialButton(
-                    onPressed: (){
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => LocationScreen(),
-                        ),
-                      );
-                    },
-                    child: Text("Location")),
               ),
               SizedBox(height: MediaQuery.of(context).size.height / 35),
               Container(

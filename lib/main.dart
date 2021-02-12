@@ -15,7 +15,6 @@ import 'screens/edit_user_screen.dart';
 import 'screens/excercise_screen.dart';
 import 'screens/goals_screen.dart';
 import 'screens/home_screen.dart';
-import 'screens/location_screen.dart';
 import 'screens/login_screen.dart';
 import 'screens/profile_screen.dart';
 import 'screens/register_screen.dart';
@@ -497,7 +496,6 @@ class _MyAppState extends State<MyApp> {
               ProfileScreen.routeName: (context) => ProfileScreen(),
               EditUserScreen.routeName: (context) => EditUserScreen(),
               GoalsScreen.routeName: (context) => GoalsScreen(),
-              LocationScreen.routeName: (context) => LocationScreen(),
               ExcerciseScreen.routeName: (context) => ExcerciseScreen(),
               StatisticsScreen.routeName: (context) => StatisticsScreen(),
             },
