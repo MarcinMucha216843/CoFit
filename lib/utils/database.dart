@@ -5,71 +5,7 @@ class Database {
   Database({this.uid});
 
   final CollectionReference usersCollection = FirebaseFirestore.instance.collection('users');
-
-  int getWeight(String uid) {
-    int weight;
-    usersCollection.doc(uid).get().then((result){
-      weight = result.data()['weight'];
-    });
-    return weight;
-  }
-
-  int getHeight(String uid) {
-    int height;
-    usersCollection.doc(uid).get().then((result){
-      height = result.data()['height'];
-    });
-    return height;
-  }
-
-  int getAge(String uid) {
-    int age;
-    usersCollection.doc(uid).get().then((result){
-      age = result.data()['age'];
-    });
-    return age;
-  }
-
-  int getPoints(String uid) {
-    int points;
-    usersCollection.doc(uid).get().then((result){
-      points = result.data()['points'];
-    });
-    return points;
-  }
-
-  String getSex(String uid) {
-    String sex;
-    usersCollection.doc(uid).get().then((result){
-      sex = result.data()['sex'];
-    });
-    return sex;
-  }
-
-  double getActivity(String uid) {
-    double activity;
-    usersCollection.doc(uid).get().then((result){
-      activity = result.data()['activity'];
-    });
-    return activity;
-  }
-
-  int getCalories(String uid) {
-    int calories;
-    usersCollection.doc(uid).get().then((result){
-      calories = result.data()['calories'];
-    });
-    return calories;
-  }
-
-  int getDrink(String uid) {
-    int drink;
-    usersCollection.doc(uid).get().then((result){
-      drink = result.data()['drink'];
-    });
-    return drink;
-  }
-
+  
   Future updateUserInfo(int weight, int height, int age, int points, String sex, double activity, int calories, int drink, GeoPoint geoBefore,
       GeoPoint geoNow, int day, List<int> caloriesStatistics, List<int> drinkStatistics, int burned, List<int> burnedStatistics) async {
     return await usersCollection.doc(uid).set({
