@@ -239,6 +239,10 @@ class _LoginState extends State<LoginScreen> {
                       Flushbar(message: "Message has been sent to Your email", duration: Duration(seconds: 3),
                           icon: Icon(Icons.error_outline, size: 28, color: Colors.orange.shade300)).show(context);
                     }
+                    else if (shouldNavigate == false){
+                      Flushbar(message: "Wrong email", duration: Duration(seconds: 3),
+                          icon: Icon(Icons.error_outline, size: 28, color: Colors.red.shade300,)).show(context);
+                    }
                   },
                   child: Text("Recover password")),
             )
