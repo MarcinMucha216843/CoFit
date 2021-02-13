@@ -5,7 +5,7 @@ class Database {
   Database({this.uid});
 
   final CollectionReference usersCollection = FirebaseFirestore.instance.collection('users');
-  
+
   Future updateUserInfo(int weight, int height, int age, int points, String sex, double activity, int calories, int drink, GeoPoint geoBefore,
       GeoPoint geoNow, int day, List<int> caloriesStatistics, List<int> drinkStatistics, int burned, List<int> burnedStatistics) async {
     return await usersCollection.doc(uid).set({

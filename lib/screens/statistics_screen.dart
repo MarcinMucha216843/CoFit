@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:charts_flutter/flutter.dart' as charts;
 import 'dashboard_screen.dart';
 import '../model/my_user.dart';
-import '../model/statisics_series.dart';
+import '../model/percentage_series.dart';
 import '../utils/check_internet_status.dart';
 
 
