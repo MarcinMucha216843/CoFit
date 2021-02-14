@@ -48,9 +48,11 @@ class _RegisterState extends State<RegisterScreen> {
       return true;
     } on FirebaseAuthException catch (e) {
       if (e.code == 'weak-password') {
-        print('The password provided is too weak.');
+        Flushbar(message: "Provided password is too weak.", duration: Duration(seconds: 3),
+            icon: Icon(Icons.error_outline, size: 28, color: Colors.red.shade300)).show(context);
       } else if (e.code == 'email-already-in-use') {
-        print('The account already exists for that email.');
+        Flushbar(message: "Account for that email already exists.", duration: Duration(seconds: 3),
+            icon: Icon(Icons.error_outline, size: 28, color: Colors.red.shade300)).show(context);
       }
       return false;
     } catch (e) {
