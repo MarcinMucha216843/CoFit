@@ -48,10 +48,11 @@ class _GoalsScreenState extends State<GoalsScreen> {
     });
   }
 
-  Future<bool> _updateCaloriesAndDrink() async {
+  Future<bool> _updateCaloriesDrinkBurned() async {
     try {
       Database(uid: FirebaseAuth.instance.currentUser.uid).updateUserCalories(0);
       Database(uid: FirebaseAuth.instance.currentUser.uid).updateUserDrink(0);
+      Database(uid: FirebaseAuth.instance.currentUser.uid).updateUserBurned(0);
 
       return true;
     } catch (e) {
@@ -273,7 +274,7 @@ class _GoalsScreenState extends State<GoalsScreen> {
                 'Delete button:',
                 style: TextStyle(fontWeight: FontWeight.bold),
               ),
-              Text("You can reset 'Your caloric intake' and 'Your water intake' values on Your own."),
+              Text("You can reset 'Your caloric intake', 'Your water consumption' and 'Your burned kilocalories' values on Your own."),
             ],
           ),
         ),
@@ -286,6 +287,41 @@ class _GoalsScreenState extends State<GoalsScreen> {
           textColor: Theme.of(context).primaryColor,
           child: const Text('Close'),
         ),
+      ],
+    );
+  }
+
+  Widget _buildConfirmationDialog(BuildContext context) {
+    return new AlertDialog(
+      title: const Text("Confirmation"),
+      content: Container(
+        height: 80,
+        width: 300,
+        child: SingleChildScrollView(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: <Widget>[
+              Text("Are You sure You want to reset "),
+              Text("'Your caloric intake', 'Your water consumption' and 'Your burned kilocalories' values?")
+            ]
+          )
+        )
+      ),
+      actions: [
+        FlatButton(
+          child: Text("No, cancel"),
+          onPressed: () {
+            Navigator.of(context).pop();
+          },
+        ),
+        FlatButton(
+          child: Text("Yes, continue"),
+          onPressed: () async {
+            _updateCaloriesDrinkBurned();
+            setState(() {});
+            Navigator.of(context).pop();
+          },
+        )
       ],
     );
   }
@@ -317,8 +353,11 @@ class _GoalsScreenState extends State<GoalsScreen> {
             icon: Icon(
               Icons.delete ,
             ),
-            onPressed: () async {
-              _updateCaloriesAndDrink();
+            onPressed: () {
+              showDialog(
+                context: context,
+                builder: (BuildContext context) => _buildConfirmationDialog(context),
+              );
             },
           ),
           IconButton(
