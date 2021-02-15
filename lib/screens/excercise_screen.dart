@@ -29,7 +29,7 @@ rand() async {
   visibility += 1;
   prefs.setInt('visibility', visibility);
 
-  if(visibility > 4) {
+  if (visibility > 4) {
     visibility = 0;
   }
 
@@ -49,7 +49,7 @@ rand() async {
     counter = 0;
   }
 
-  switch(number) {
+  switch (number) {
     case 1: {title = "High knees";
     link = "https://firebasestorage.googleapis.com/v0/b/degree20.appspot.com/o/high%20knees.png?alt=media&token=fe32e9a8-4278-4ca2-96b1-1fffa9af8a19";}
     prefs.setInt('1', number);
