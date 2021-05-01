@@ -402,13 +402,13 @@ void main() async {
   showNotification();
   changeDay();
 
-  var cron = new Cron();
-  cron.schedule(new Schedule.parse('30 1 * * *'), () async {
+  var pointsManager = new Cron();
+  pointsManager.schedule(new Schedule.parse('30 1 * * *'), () async {
     await managePoints();
   });
 
-  var cron2 = new Cron();
-  cron2.schedule(new Schedule.parse('0 9,12,15,18,21 * * *'), () async {
+  var activityChecker = new Cron();
+  activityChecker.schedule(new Schedule.parse('0 9,12,15,18,21 * * *'), () async {
     await getCurrentPosition();
     await calculateDistance();
   });
