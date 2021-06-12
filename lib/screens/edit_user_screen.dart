@@ -285,21 +285,16 @@ class _EditUserState extends State<EditUserScreen> {
                   child: MaterialButton(
                     onPressed: () async {
                       bool shouldNavigate = false;
-                      bool ageValid = RegExp(r"[1-9]{1}[0-9]{0,2}").hasMatch(_ageField.text);
-                      bool heightValid = RegExp(r"[1-9]{1}[0-9]{0,2}").hasMatch(_heightField.text);
-                      bool weightValid = RegExp(r"[1-9]{1}[0-9]{0,2}").hasMatch(_weightField.text);
+                      bool ageValid = RegExp(r"^\d+$").hasMatch(_ageField.text);
+                      bool heightValid = RegExp(r"^\d+$").hasMatch(_heightField.text);
+                      bool weightValid = RegExp(r"^\d+$").hasMatch(_weightField.text);
                       if (_ageField.text.length <= 0) {
                         Flushbar(message: "Age can't be empty", duration: Duration(seconds: 3),
                             icon: Icon(Icons.error_outline, size: 28, color: Colors.red.shade300)).show(context);
                         shouldNavigate = false;
                       }
                       else if (ageValid == false){
-                        Flushbar(message: "Age must be a number", duration: Duration(seconds: 3),
-                            icon: Icon(Icons.error_outline, size: 28, color: Colors.red.shade300)).show(context);
-                        shouldNavigate = false;
-                      }
-                      else if (int.parse(_ageField.text) <= 0){
-                        Flushbar(message: "Age must be a positive number", duration: Duration(seconds: 3),
+                        Flushbar(message: "Age must be a whole positive number", duration: Duration(seconds: 3),
                             icon: Icon(Icons.error_outline, size: 28, color: Colors.red.shade300)).show(context);
                         shouldNavigate = false;
                       }
@@ -314,12 +309,7 @@ class _EditUserState extends State<EditUserScreen> {
                         shouldNavigate = false;
                       }
                       else if (heightValid == false){
-                        Flushbar(message: "Height must be a number", duration: Duration(seconds: 3),
-                            icon: Icon(Icons.error_outline, size: 28, color: Colors.red.shade300)).show(context);
-                        shouldNavigate = false;
-                      }
-                      else if (int.parse(_heightField.text) <= 0){
-                        Flushbar(message: "Height must be a positive number", duration: Duration(seconds: 3),
+                        Flushbar(message: "Height must be a whole positive number", duration: Duration(seconds: 3),
                             icon: Icon(Icons.error_outline, size: 28, color: Colors.red.shade300)).show(context);
                         shouldNavigate = false;
                       }
@@ -334,12 +324,7 @@ class _EditUserState extends State<EditUserScreen> {
                         shouldNavigate = false;
                       }
                       else if (weightValid == false){
-                        Flushbar(message: "Weight must be a number", duration: Duration(seconds: 3),
-                            icon: Icon(Icons.error_outline, size: 28, color: Colors.red.shade300)).show(context);
-                        shouldNavigate = false;
-                      }
-                      else if (int.parse(_weightField.text) <= 0){
-                        Flushbar(message: "Weight must be a positive number", duration: Duration(seconds: 3),
+                        Flushbar(message: "Weight must be a whole positive number", duration: Duration(seconds: 3),
                             icon: Icon(Icons.error_outline, size: 28, color: Colors.red.shade300)).show(context);
                         shouldNavigate = false;
                       }

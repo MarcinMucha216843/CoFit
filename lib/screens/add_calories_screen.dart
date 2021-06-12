@@ -164,19 +164,14 @@ class _AddCaloriesState extends State<AddCaloriesScreen> {
                   child: MaterialButton(
                     onPressed: () async {
                       bool shouldNavigate = false;
-                      bool caloriesValid = RegExp(r"[1-9]{1}[0-9]{0,3}").hasMatch(_caloriesField.text);
+                      bool caloriesValid = RegExp(r"^\d+$").hasMatch(_caloriesField.text);
                       if (_caloriesField.text.length <= 0) {
                         Flushbar(message: "Amount of kilocalories can't be empty", duration: Duration(seconds: 3),
                             icon: Icon(Icons.error_outline, size: 28, color: Colors.red.shade300)).show(context);
                         shouldNavigate = false;
                       }
                       else if (caloriesValid  == false){
-                        Flushbar(message: "Amount of kilocalories must be a number", duration: Duration(seconds: 3),
-                            icon: Icon(Icons.error_outline, size: 28, color: Colors.red.shade300)).show(context);
-                        shouldNavigate = false;
-                      }
-                      else if (int.parse(_caloriesField.text) <= 0){
-                        Flushbar(message: "Amount of kilocalories must be a positive number", duration: Duration(seconds: 3),
+                        Flushbar(message: "Amount of kilocalories must be a whole positive number", duration: Duration(seconds: 3),
                             icon: Icon(Icons.error_outline, size: 28, color: Colors.red.shade300)).show(context);
                         shouldNavigate = false;
                       }

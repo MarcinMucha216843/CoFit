@@ -164,19 +164,14 @@ class _AddDrinkState extends State<AddDrinkScreen> {
                   child: MaterialButton(
                     onPressed: () async {
                       bool shouldNavigate = false;
-                      bool drinkValid = RegExp(r"[1-9]{1}[0-9]{0,3}").hasMatch(_drinkField.text);
+                      bool drinkValid = RegExp(r"^\d+$").hasMatch(_drinkField.text);
                       if (_drinkField.text.length <= 0) {
                         Flushbar(message: "Amount of water can't be empty", duration: Duration(seconds: 3),
                             icon: Icon(Icons.error_outline, size: 28, color: Colors.red.shade300)).show(context);
                         shouldNavigate = false;
                       }
                       else if (drinkValid  == false){
-                        Flushbar(message: "Amount of water must be a number", duration: Duration(seconds: 3),
-                            icon: Icon(Icons.error_outline, size: 28, color: Colors.red.shade300)).show(context);
-                        shouldNavigate = false;
-                      }
-                      else if (int.parse(_drinkField.text) <= 0){
-                        Flushbar(message: "Amount of water must be a positive number", duration: Duration(seconds: 3),
+                        Flushbar(message: "Amount of water must be a whole positive number", duration: Duration(seconds: 3),
                             icon: Icon(Icons.error_outline, size: 28, color: Colors.red.shade300)).show(context);
                         shouldNavigate = false;
                       }
